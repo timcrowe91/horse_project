@@ -18,45 +18,45 @@ st.markdown("""# Horse Arbitrator
 
 
 
-payload = 'username=' + my_username + '&password=' + my_password
-headers = {'X-Application': my_app_key, 'Content-Type': 'application/x-www-form-urlencoded'}
-resp = requests.post('https://identitysso-cert.betfair.com/api/certlogin',data=payload,cert=('test.crt','client-2048.pem'),headers=headers)
-json_resp=resp.json()
-SSOID = json_resp['sessionToken']
+# payload = 'username=' + my_username + '&password=' + my_password
+# headers = {'X-Application': my_app_key, 'Content-Type': 'application/x-www-form-urlencoded'}
+# resp = requests.post('https://identitysso-cert.betfair.com/api/certlogin',data=payload,cert=('test.crt','client-2048.pem'),headers=headers)
+# json_resp=resp.json()
+# SSOID = json_resp['sessionToken']
 
-eventTypeID = '["7"]' #ID for Horse Racing
-countryCode= '["GB","IE"]' #Country Codes. Betfair use Alpha-2 Codes under ISO 3166-1
-marketTypeCode='["WIN"]' #Market Type
-MarketStartTime= datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ') #Event Start and End times
-MarketEndTime = (datetime.datetime.now() + datetime.timedelta(hours=24))
-MarketEndTime = MarketEndTime.strftime('%Y-%m-%dT%H:%M:%SZ')
-maxResults = str(1000)
-sortType = 'FIRST_TO_START' #Sorts the Output
-Metadata = 'RUNNER_METADATA' #Provides metadata
-inplay = 'false' #still to run
-bet_url="https://api.betfair.com/exchange/betting/json-rpc/v1"
-user_req='{"jsonrpc": "2.0", "method": "SportsAPING/v1.0/listMarketCatalogue",\
-           "params": {"filter":{"eventTypeIds":'+eventTypeID+',"marketTypeCodes":'+marketTypeCode+',\
-           "inPlayOnly":'+inplay+', "marketCountries":'+countryCode+',  \
-           "marketStartTime":{"from":"'+MarketStartTime+'", "to":"'+MarketEndTime+'"}},\
-           "sort":"'+sortType+'", "maxResults":"'+maxResults+'", "marketProjection":["'+Metadata+'"]}, "id": 1}'
+# eventTypeID = '["7"]' #ID for Horse Racing
+# countryCode= '["GB","IE"]' #Country Codes. Betfair use Alpha-2 Codes under ISO 3166-1
+# marketTypeCode='["WIN"]' #Market Type
+# MarketStartTime= datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ') #Event Start and End times
+# MarketEndTime = (datetime.datetime.now() + datetime.timedelta(hours=24))
+# MarketEndTime = MarketEndTime.strftime('%Y-%m-%dT%H:%M:%SZ')
+# maxResults = str(1000)
+# sortType = 'FIRST_TO_START' #Sorts the Output
+# Metadata = 'RUNNER_METADATA' #Provides metadata
+# inplay = 'false' #still to run
+# bet_url="https://api.betfair.com/exchange/betting/json-rpc/v1"
+# user_req='{"jsonrpc": "2.0", "method": "SportsAPING/v1.0/listMarketCatalogue",\
+#            "params": {"filter":{"eventTypeIds":'+eventTypeID+',"marketTypeCodes":'+marketTypeCode+',\
+#            "inPlayOnly":'+inplay+', "marketCountries":'+countryCode+',  \
+#            "marketStartTime":{"from":"'+MarketStartTime+'", "to":"'+MarketEndTime+'"}},\
+#            "sort":"'+sortType+'", "maxResults":"'+maxResults+'", "marketProjection":["'+Metadata+'"]}, "id": 1}'
 
-req = urllib.request.Request(bet_url, data=user_req.encode('utf-8'), headers=headers)
-response= urllib.request.urlopen(req)
-jsonResponse = response.read()
-pkg = jsonResponse.decode('utf-8')
-print(pkg)
-result = json.loads(pkg) 
-marketCatelogue = result
+# req = urllib.request.Request(bet_url, data=user_req.encode('utf-8'), headers=headers)
+# response= urllib.request.urlopen(req)
+# jsonResponse = response.read()
+# pkg = jsonResponse.decode('utf-8')
+# print(pkg)
+# result = json.loads(pkg) 
+# marketCatelogue = result
 
-print(marketCatelogue)
+# print(marketCatelogue)
 
-bet_url="https://api.betfair.com/exchange/betting/json-rpc/v1"
-event_req = '{"jsonrpc": "2.0", "method": "SportsAPING/v1.0/listEventTypes", "params": {"filter":{ }}, "id": 1}'
-headers = {'X-Application': my_app_key, 'X-Authentication': SSOID, 'content-type': 'application/json'}
-req = requests.post(bet_url, data=event_req.encode('utf-8'), headers=headers) 
-eventTypes = req.json()
-print(eventTypes)
+# bet_url="https://api.betfair.com/exchange/betting/json-rpc/v1"
+# event_req = '{"jsonrpc": "2.0", "method": "SportsAPING/v1.0/listEventTypes", "params": {"filter":{ }}, "id": 1}'
+# headers = {'X-Application': my_app_key, 'X-Authentication': SSOID, 'content-type': 'application/json'}
+# req = requests.post(bet_url, data=event_req.encode('utf-8'), headers=headers) 
+# eventTypes = req.json()
+# print(eventTypes)
 
 
 def BestHorseForm():
@@ -189,7 +189,8 @@ def BestHorseForm():
                  
     return Results
 
-
+a = BestHorseForm()
+a
 # def getMarketCatalogueForNextGBWin(eventTypeID):
 #     if (eventTypeID is not None):
 #         print( 'Calling listMarketCatalouge Operation to get MarketID and selectionId')
