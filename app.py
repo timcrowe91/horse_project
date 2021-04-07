@@ -73,12 +73,18 @@ def BestHorseForm():
         a.append(marketCatelogue[0]['runners'][i]["runnerName"])
         sel.append(marketCatelogue[0]['runners'][i]["selectionId"])
 
-    back_1 = []
-    back_2 = []
-    back_3 = []
-    lay_1=[]
-    lay_2=[]
-    lay_3=[]
+    back_odds_1 = []
+    back_avail_1 = []
+    back_odds_2 = []
+    back_avail_2 = []
+    back_odds_3 = []
+    back_avail_3 = []
+    lay_odds_1=[]
+    lay_avail_1=[]
+    lay_odds_2=[]
+    lay_avail_2 =[]
+    lay_odds_3=[]
+    lay_avail_3 =[]
     total_matched=[]
     last_price =[]
     for i in range(len(sel)):  
@@ -93,37 +99,74 @@ def BestHorseForm():
         price_jsonResponse = price_response.read()
         price_pkg = price_jsonResponse.decode('utf-8')
         price_result = json.loads(price_pkg) 
-        back_1.append(price_result['result'][0]['runners'][0]['ex']['availableToBack'][0])
-        back_2.append(price_result['result'][0]['runners'][0]['ex']["availableToBack"][1])
-        back_3.append(price_result['result'][0]['runners'][0]['ex']["availableToBack"][2])
-        if price_result['result'][0]['runners'][0]['ex']['availableToLay'] == False:
-            lay_1.append(0)
-            lay_2.append(0)
-            lay_3.append(0)
-        if len(price_result['result'][0]['runners'][0]['ex']['availableToLay']) == 1:
-            lay_1.append(price_result['result'][0]['runners'][0]['ex']['availableToLay'][0])
-            lay_2.append(0)
-            lay_3.append(0)
-        if len(price_result['result'][0]['runners'][0]['ex']['availableToLay']) == 2:
-            lay_1.append(price_result['result'][0]['runners'][0]['ex']['availableToLay'][0])
-            lay_2.append(price_result['result'][0]['runners'][0]['ex']["availableToLay"][1])
-            lay_3.append(0)
-        if len(price_result['result'][0]['runners'][0]['ex']['availableToLay']) == 3:
-            lay_1.append(price_result['result'][0]['runners'][0]['ex']['availableToLay'][0])
-            lay_2.append(price_result['result'][0]['runners'][0]['ex']["availableToLay"][1])
-            lay_3.append(price_result['result'][0]['runners'][0]['ex']["availableToLay"][2])
-        total_matched.append(price_result['result'][0]['runners'][0]['totalMatched'])
-        last_price.append(price_result['result'][0]['runners'][0]["lastPriceTraded"])
+        if price_result['result'][0]['runners'][0]['status'] == 'REMOVED':
+            back_odds_1.append('removed')
+            back_avail_1.append('removed')
+            back_odds_2.append('removed')
+            back_avail_2.append('removed')
+            back_odds_3.append('removed')
+            back_avail_3.append('removed')
+            lay_odds_1.append('removed')
+            lay_avail_1.append('removed')
+            lay_odds_2.append('removed')
+            lay_avail_2.append('removed')
+            lay_odds_3.append('removed')
+            lay_avail_3.append('removed')
+            last_price.append('removed')
+            total_matched.append('removed')
+        else:
+            back_odds_1.append(price_result['result'][0]['runners'][0]['ex']['availableToBack'][0]['price'])
+            back_avail_1.append(price_result['result'][0]['runners'][0]['ex']['availableToBack'][0]['size'])
+            back_odds_2.append(price_result['result'][0]['runners'][0]['ex']["availableToBack"][1]['price'])
+            back_avail_2.append(price_result['result'][0]['runners'][0]['ex']["availableToBack"][1]['size'])
+            back_odds_3.append(price_result['result'][0]['runners'][0]['ex']["availableToBack"][2]['price'])
+            back_avail_3.append(price_result['result'][0]['runners'][0]['ex']["availableToBack"][2]['size'])
+            if price_result['result'][0]['runners'][0]['ex']['availableToLay'] == False:
+                lay_odds_1.append(0)
+                lay_avail_1.append(0)
+                lay_odds_2.append(0)
+                lay_avail_2.append(0)
+                lay_odds_3.append(0)
+                lay_avail_3.append(0)
+            if len(price_result['result'][0]['runners'][0]['ex']['availableToLay']) == 1:
+                lay_odds_1.append(price_result['result'][0]['runners'][0]['ex']['availableToLay'][0]['price'])
+                lay_avail_1.append(price_result['result'][0]['runners'][0]['ex']['availableToLay'][0]['size'])
+                lay_odds_2.append(0)
+                lay_avail_2.append(0)
+                lay_odds_3.append(0)
+                lay_avail_3.append(0)
+            if len(price_result['result'][0]['runners'][0]['ex']['availableToLay']) == 2:
+                lay_odds_1.append(price_result['result'][0]['runners'][0]['ex']['availableToLay'][0]['price'])
+                lay_avail_1.append(price_result['result'][0]['runners'][0]['ex']['availableToLay'][0]['size'])
+                lay_odds_2.append(price_result['result'][0]['runners'][0]['ex']["availableToLay"][1]['price'])
+                lay_avail_2.append(price_result['result'][0]['runners'][0]['ex']["availableToLay"][1]['size'])
+                lay_odds_3.append(0)
+                lay_avail_3.append(0)
+            if len(price_result['result'][0]['runners'][0]['ex']['availableToLay']) == 3:
+                lay_odds_1.append(price_result['result'][0]['runners'][0]['ex']['availableToLay'][0]['price'])
+                lay_avail_1.append(price_result['result'][0]['runners'][0]['ex']['availableToLay'][0]['size'])
+                lay_odds_2.append(price_result['result'][0]['runners'][0]['ex']["availableToLay"][1]['price'])
+                lay_avail_2.append(price_result['result'][0]['runners'][0]['ex']["availableToLay"][1]['size'])
+                lay_odds_3.append(price_result['result'][0]['runners'][0]['ex']["availableToLay"][2]['price'])
+                lay_avail_3.append(price_result['result'][0]['runners'][0]['ex']["availableToLay"][2]['size'])
+            total_matched.append(price_result['result'][0]['runners'][0]['totalMatched'])
+            last_price.append(price_result['result'][0]['runners'][0]["lastPriceTraded"])
 
 
     df = pd.DataFrame()
     df['horse_name']=a
-    df['back_1']= back_1
-    df['back_2']= back_2
-    df['back_3']= back_3
-    df['lay_1']= lay_1
-    df['lay_2']= lay_2
-    df['lay_3']= lay_3
+    df['back_odds_3']= back_odds_3
+    df['back_avail_3']= back_avail_3
+    df['back_odds_2']= back_odds_2
+    df['back_avail_2']= back_avail_2
+    df['back_odds_1']= back_odds_1
+    df['back_avail_1'] = back_avail_1
+    df['lay_odds_1']= lay_odds_1
+    df['lay_avail_1'] = lay_avail_1
+    df['lay_odds_2']= lay_odds_2
+    df['lay_avail_2'] = lay_avail_2
+    df['lay_odds_3']= lay_odds_3
+    df['lay_avail_3'] = lay_avail_3
     df['last_price'] = last_price
     df['TotalMatched'] = total_matched
     return df, market_id
