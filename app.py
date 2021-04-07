@@ -121,7 +121,7 @@ def BestHorseForm():
             back_avail_2.append(price_result['result'][0]['runners'][0]['ex']["availableToBack"][1]['size'])
             back_odds_3.append(price_result['result'][0]['runners'][0]['ex']["availableToBack"][2]['price'])
             back_avail_3.append(price_result['result'][0]['runners'][0]['ex']["availableToBack"][2]['size'])
-            if price_result['result'][0]['runners'][0]['ex']['availableToLay'] == False:
+            if len(price_result['result'][0]['runners'][0]['ex']['availableToLay']) == 0:
                 lay_odds_1.append(0)
                 lay_avail_1.append(0)
                 lay_odds_2.append(0)
@@ -169,6 +169,7 @@ def BestHorseForm():
     df['lay_avail_3'] = lay_avail_3
     df['last_price'] = last_price
     df['TotalMatched'] = total_matched
+
     return df, market_id
 
 
@@ -192,6 +193,18 @@ while True:
 # price, b = BestHorseForm()
 # st.markdown(f"### Predictions for event number {b}")
 # st.write(price)
+
+
+
+#    price_req = '{"jsonrpc": "2.0", "method": "SportsAPING/v1.0/listMarketBook", "params":\
+#     {"marketIds":["1.181564117"],"priceProjection":{"priceData":["EX_BEST_OFFERS","EX_TRADED"],"virtualise": "true"}}, "id": 1}]' 
+#     req = urllib.request.Request(bet_url, data=price_req.encode('utf-8'), headers=headers)
+#     price_response= urllib.request.urlopen(req)
+#     price_jsonResponse = price_response.read()
+#     price_pkg = price_jsonResponse.decode('utf-8')
+#     price_response = json.loads(price_pkg) 
+
+
 
 #     for x in range(len(marketCatelogue)):
 #         for w in range(len(marketCatelogue[x]['runners'])):
