@@ -173,6 +173,13 @@ def BestHorseForm():
     return df, market_id
 
 
+
+df = pd.DataFrame(columns=['horse_name','back_odds_3','back_avail_3','back_odds_2',\
+                            'back_avail_2','back_odds_1','back_avail_1','lay_odds_1',\
+                            'lay_avail_1','lay_odds_2','lay_avail_2','lay_odds_3','lay_avail_3',\
+                            'last_price','TotalMatched'])
+
+
 placeholder = st.empty()
 
 with placeholder.beta_container():
@@ -181,14 +188,16 @@ with placeholder.beta_container():
     st.write(a)
 sleep(5)
 
+
+
 while True:
     placeholder.empty()
     with placeholder.beta_container():
         a,b = BestHorseForm()
         st.markdown(f"### Predictions for event number {b}")
         st.write(a)
+        df = df.append(a)
     sleep(5)
-
 
 # price, b = BestHorseForm()
 # st.markdown(f"### Predictions for event number {b}")
