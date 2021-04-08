@@ -10,7 +10,7 @@ from tensorflow.keras.models import load_model
 
 
 
-def get_data():
+def get_model():
     X = pd.read_csv('raw_data/test_data_X.csv')
     y_test = pd.read_csv('raw_data/test_data_y.csv')
     X = X.drop(columns='Unnamed: 0')

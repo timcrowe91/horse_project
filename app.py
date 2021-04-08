@@ -8,7 +8,7 @@ import urllib.error
 import requests
 import pandas as pd
 from time import time, sleep
-
+from data import get_model
 
 st.markdown("""# Horse Arbitrator
 ## 🐴🐴🐴 Calculates the future odds of each horse perfectly 🐴🐴🐴
@@ -172,8 +172,9 @@ def BestHorseForm():
 
     return df, market_id
 
-
-
+X,y,model = get_model()
+prediction=model.predict(X[0])
+prediction
 df = pd.DataFrame(columns=['horse_name','back_odds_3','back_avail_3','back_odds_2',\
                             'back_avail_2','back_odds_1','back_avail_1','lay_odds_1',\
                             'lay_avail_1','lay_odds_2','lay_avail_2','lay_odds_3','lay_avail_3',\
