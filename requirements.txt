@@ -36,3 +36,4 @@ urllib
 urllib.request
 urllib.error
 requests
+tensorflow
