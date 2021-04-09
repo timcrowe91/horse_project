@@ -9,7 +9,6 @@ COPY data_model /data_model
 COPY api /api
 COPY requirements.txt /requirements.txt
 COPY horse_project /horse_project
-COPY home/rexelardo/code/Lewagon_GCP_Credentials.json /credentials.json
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
