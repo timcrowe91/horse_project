@@ -6,7 +6,7 @@ FROM python:3.8.6-buster
 
 
 COPY data.py /data.py
-
+COPY api /api
 COPY requirements.txt /requirements.txt
 COPY horse_project /horse_project
 COPY home/rexelardo/code/Lewagon_GCP_Credentials.json /credentials.json

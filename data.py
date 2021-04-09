@@ -18,3 +18,7 @@ def get_model():
     X = X.reshape(1413,24,5)
     new_model  = load_model('gs://horseracingproject/base_model')
     return X, y_test, new_model
+
+
+if __name__ == '__main__':
+    X,y_test,new_model= get_model()

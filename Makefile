@@ -63,7 +63,10 @@ pypi:
 
 
 gcp_submit_training:
-	@gcloud ai-platform jobs submit training ${JOB_NAME} \
-    ... \
-    --scale-tier CUSTOM \
-    --master-machine-type n1-standard-16
+	@gcloud ai-platform jobs submit training first_shot \
+    --staging-bucket=gs://horseracingproject \
+    --job-dir=$JOB_DIR  \
+    --package-path=data.py \
+    --module-name=$MODULE_NAME \
+    --region=$REGION \
+	--stream logs

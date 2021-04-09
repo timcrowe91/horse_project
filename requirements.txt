@@ -21,6 +21,9 @@ gcsfs
 google-cloud-storage
 mlflow
 s3fs
+termcolor
+uvicorn 
+fastapi
 
 # utilities
 six>=1.14
@@ -37,3 +40,5 @@ urllib.request
 urllib.error
 requests
 tensorflow
+
+
