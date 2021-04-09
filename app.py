@@ -37,6 +37,7 @@ while True:
         df = df.append(a)
     sleep(5)
 
+
 # price, b = BestHorseForm()
 # st.markdown(f"### Predictions for event number {b}")
 # st.write(price)

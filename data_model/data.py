@@ -162,7 +162,10 @@ def BestHorseForm():
                 lay_odds_3.append(price_result['result'][0]['runners'][0]['ex']["availableToLay"][2]['price'])
                 lay_avail_3.append(price_result['result'][0]['runners'][0]['ex']["availableToLay"][2]['size'])
             total_matched.append(price_result['result'][0]['runners'][0]['totalMatched'])
-            last_price.append(price_result['result'][0]['runners'][0]["lastPriceTraded"])
+            if "lastPriceTraded" in price_result['result'][0]['runners'][0]:
+                last_price.append(price_result['result'][0]['runners'][0]["lastPriceTraded"])
+            else:
+                last_price.append(0)
 
 
     df = pd.DataFrame()
