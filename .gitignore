@@ -5,3 +5,5 @@
 raw_data/
 **/__pycache__/
 .env
+
+data_model/20-03b.csv
