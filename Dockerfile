@@ -5,7 +5,7 @@ FROM python:3.8.6-buster
 
 
 
-COPY data.py /data.py
+COPY data_model /data_model
 COPY api /api
 COPY requirements.txt /requirements.txt
 COPY horse_project /horse_project

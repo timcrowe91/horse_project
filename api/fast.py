@@ -22,8 +22,7 @@ def index():
 
 
 @app.get("/predict_odds")
-def predict(X_test):
-    model = get_model()
-    prediction = model.predict(X_test)[0]
-
+def predict():
+    X, y_test, model = get_model()
+    prediction = model.predict(X)[0]
     return {'prediciton': prediction}
