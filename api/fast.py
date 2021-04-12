@@ -24,6 +24,7 @@ def index():
 @app.get("/predict_odds")
 def predict(X):
     model = get_model()
+    numpy_2d_arrays = np.array(dict["X"])
     prediction_list = []
     for i in X:
         prediction = model.predict(X)[i]
