@@ -2,8 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import numpy as np
-import tensorflow
-from horse_project.data import get_model
+import tensorflow as tf
+from data_model.data import get_model
 
 
 app = FastAPI()
@@ -22,7 +22,10 @@ def index():
 
 
 @app.get("/predict_odds")
-def predict():
-    X, y_test, model = get_model()
-    prediction = model.predict(X)[0]
-    return {'prediciton': prediction}
+def predict(X):
+    model = get_model()
+    prediction_list = []
+    for i in X:
+        prediction = model.predict(X)[i]
+        prediction_list.append(prediction)
+    return {'predicitons': prediction_list}

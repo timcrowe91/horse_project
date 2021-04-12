@@ -8,7 +8,7 @@ import urllib
 # import urllib.error
 import requests
 import pandas as pd
-# from tensorflow.keras.models import load_model
+from tensorflow.keras.models import load_model
 X = pd.read_csv('raw_data/test_data_X.csv')
 y_test = pd.read_csv('raw_data/test_data_y.csv')
 
@@ -18,14 +18,9 @@ X = X.reshape(1413,24,5)
 
 
 
-# def get_model():
-#     X = pd.read_csv('raw_data/test_data_X.csv')
-#     y_test = pd.read_csv('raw_data/test_data_y.csv')
-#     X = X.drop(columns='Unnamed: 0')
-#     X = np.array(X)
-#     X = X.reshape(1413,24,5)
-#     new_model  = load_model('gs://horseracingproject/base_model')
-#     return X, y_test, new_model
+def get_model():
+    new_model  = load_model('gs://horseracingproject/base_model')
+    return new_model
 
 
 def BestHorseForm():
