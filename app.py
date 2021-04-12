@@ -3,8 +3,10 @@ from time import time, sleep
 import pandas as pd
 from data_model.data import BestHorseForm
 from data_model.preprocessing import filter_new_data
+from data_model.data import get_model
+
 import requests as re
-import json
+# import json
 
 st.markdown("""# Horse Arbitrator
 ## 🐴🐴🐴 Calculates the future odds of each horse perfectly 🐴🐴🐴
@@ -29,13 +31,10 @@ st.markdown("""# Horse Arbitrator
 uploaded_file = st.file_uploader("Upload a file", type=("csv"))
 if uploaded_file is not None:
     scaled_X, scaled_y = filter_new_data(uploaded_file)
-    url = 'https://horse-model-afs5fmgluq-uw.a.run.app/predict_odds'
-    scaled_X = scaled_X[0:3].tolist()
-    json_str = json.dumps(scaled_X)
-    response = re.get(url, params={'X': json_str})
-    st.write(response)
-    print(response.url)
-    
+    model = get_model()
+    prediction = model.predict(scaled_X[0:3])
+    st.write(prediction)
+
 
 
 df = pd.DataFrame(columns=['horse_name','back_odds_3','back_avail_3','back_odds_2',\
