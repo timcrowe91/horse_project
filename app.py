@@ -2,6 +2,7 @@ import streamlit as st
 from time import time, sleep
 import pandas as pd
 from data_model.data import BestHorseForm
+from data_model.preprocessing import filter_new_data
 
 st.markdown("""# Horse Arbitrator
 ## 🐴🐴🐴 Calculates the future odds of each horse perfectly 🐴🐴🐴
@@ -13,15 +14,20 @@ st.markdown("""# Horse Arbitrator
 # prediction=model.predict(X[0])
 # prediction
 
-import os
 
-def file_selector(folder_path='.'):
-    filenames = os.listdir(folder_path)
-    selected_filename = st.selectbox('Select a file', filenames)
-    return os.path.join(folder_path, selected_filename)
+# def file_selector(folder_path='.'):
+#     filenames = os.listdir(folder_path)
+#     selected_filename = st.selectbox('Select a file', filenames)
+#     return os.path.join(folder_path, selected_filename)
 
-filename = file_selector()
-st.write('You selected `%s`' % filename)
+
+# filename = file_selector()
+# st.write('You selected `%s`' % filename)
+
+uploaded_file = st.file_uploader("Upload a file", type=("csv"))
+if uploaded_file is not None:
+    scaled_X, scaled_y = filter_new_data(uploaded_file)
+    st.write(scaled_X)
 
 
 
@@ -49,6 +55,7 @@ while True:
         st.write(a)
         df = df.append(a)
     sleep(5)
+
 
 
 # price, b = BestHorseForm()

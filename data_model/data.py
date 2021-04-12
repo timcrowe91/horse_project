@@ -188,5 +188,5 @@ def BestHorseForm():
     return df, market_id
 
 
-if __name__ == '__main__':
-    X,y_test,new_model= get_model()
+# if __name__ == '__main__':
+#     X,y_test,new_model= get_model()

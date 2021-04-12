@@ -185,7 +185,7 @@ def filter_new_data(csv_file):
     df['Matched_Percentage'] = df['MatchedDiff'] / df['TotalMatched']
 
 
-    r_scaler = load(open('robust_scaler.pkl','rb')) # Fit scaler to feature
+    r_scaler = load(open('data_model/robust_scaler.pkl','rb')) # Fit scaler to feature
     df[['Implied_Prob_s', 'Pressure1_s', 'Pressure2_s', 'Pressure3_s', 'Matched_Percentage_s']] = \
         r_scaler.transform(df[['Implied_Prob', 'Pressure1', 'Pressure2', 'Pressure3', 'Matched_Percentage']]) #Scale
     
@@ -234,7 +234,3 @@ def filter_new_data(csv_file):
 
 
     return X, y_5s
-
-print(filter_data('20-03b.csv'))
-print("/////////////////////////////////////////")
-print(filter_new_data('20-03b.csv'))
