@@ -59,3 +59,19 @@ pypi_test:
 
 pypi:
 	@twine upload dist/* -u $(PYPI_USERNAME)
+
+
+
+gcp_submit_training:
+	@gcloud ai-platform jobs submit training first_shot \
+    --staging-bucket=gs://horseracingproject/ \
+    --package-path=data_model \
+    --module-name=$MODULE_NAME \
+    --region=us-west1 \
+	--runtime-version=2.4 \
+	--python-version 3.7 \
+	--stream-logs
+
+
+run_api:
+	@uvicorn api.fast:app --reload 
