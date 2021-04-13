@@ -20,11 +20,11 @@ from tensorflow.keras.models import load_model
 
 
 def get_classification():
-    new_model  = load_model('https://storage.googleapis.com/horseracingproject/Classification%20Model_%2020s-1.02.h5')
+    new_model  = load_model('data_model/Classification Model_ 20s-1.02.h5')
     return new_model
 
 def get_linear():
-    new_model  = load_model('https://storage.googleapis.com/horseracingproject/Linear%20Model_%2020s-4.2e-5.h5')
+    new_model  = load_model('data_model/Linear Model_ 20s-4.2e-5.h5')
     return new_model
 
 
