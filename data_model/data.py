@@ -8,8 +8,8 @@ import urllib
 # import urllib.error
 import requests
 import pandas as pd
-# from tensorflow.keras.models import load_model
-import tflite_runtime.interpreter as tflite
+from tensorflow.keras.models import load_model
+# import tflite_runtime.interpreter as tflite
 # X = pd.read_csv('raw_data/test_data_X.csv')
 # y_test = pd.read_csv('raw_data/test_data_y.csv')
 
@@ -20,7 +20,7 @@ import tflite_runtime.interpreter as tflite
 
 
 def get_model():
-    new_model = tflite(model_path='gs://horseracingproject/base_model')
+    new_model  = load_model('gs://horseracingproject/base_model')
     return new_model
 
 
