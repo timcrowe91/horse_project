@@ -37,9 +37,10 @@ if uploaded_file is not None:
     class_prediction = class_model.predict(X[0:3])
     a = pd.DataFrame(class_prediction, columns=['down','same','up'])
     a=a.idxmax(axis=1, skipna=True)
+    b = a.copy()
     lin_prediction = linear_model.predict(X[0:3])
-    a['pred_prob'] = lin_prediction
-    st.write(a)
+    b['pred_prob'] = lin_prediction
+    st.write(b)
 
 
 
