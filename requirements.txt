@@ -22,6 +22,5 @@ six>=1.14
 streamlit
 requests
 datetime
-tensorflow
-
+https://google-coral.github.io/py-repo/ tflite_runtime
 
