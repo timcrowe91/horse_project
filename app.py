@@ -9,7 +9,7 @@ from data_model.data import get_model
 # import json
 
 st.markdown("""# Horse Arbitrator
-## 🐴🐴🐴 Calculates the future odds of each horse perfectly 🐴🐴🐴
+## Calculates the future odds of each horse perfectly
 ### Here is a list of current horses
 """)
 
