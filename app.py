@@ -1,9 +1,8 @@
 import streamlit as st
 from time import time, sleep
 import pandas as pd
-from data_model.data import BestHorseForm
-from data_model.preprocessing import filter_new_data
-from data_model.data import get_model
+from data_model.data import BestHorseForm, get_classification, get_linear
+from data_model.preprocessing import filter_new_data 
 
 # import requests as re
 # import json
@@ -31,9 +30,12 @@ st.markdown("""# Horse Arbitrator
 uploaded_file = st.file_uploader("Upload a file", type=("csv"))
 if uploaded_file is not None:
     scaled_X, scaled_y = filter_new_data(uploaded_file)
-    model = get_model()
-    prediction = model.predict(scaled_X[0:3])
-    st.write(prediction)
+    class_model = get_classification()
+    linear_model = get_linear()
+    class_prediction = class_model.predict(scaled_X[0:3])
+    st.write(class_prediction)
+    lin_prediction = linear_model.predict(scaled_X[0:3])
+    st.write(lin_prediction)
 
 
 

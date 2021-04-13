@@ -65,7 +65,7 @@ pypi:
 gcp_submit_training:
 	@gcloud ai-platform jobs submit training first_shot \
     --staging-bucket=gs://horseracingproject/ \
-    --package-path=data_model \
+    --package-path=models \
     --module-name=$MODULE_NAME \
     --region=us-west1 \
 	--runtime-version=2.4 \

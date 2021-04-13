@@ -19,9 +19,14 @@ from tensorflow.keras.models import load_model
 
 
 
-def get_model():
-    new_model  = load_model('gs://horseracingproject/base_model')
+def get_classification():
+    new_model  = load_model('gs://horseracingproject/Classification Model_ 20s-1.02.h5')
     return new_model
+
+def get_linear():
+    new_model  = load_model('gs://horseracingproject/Linear Model_ 20s-4.2e-5.h5')
+    return new_model
+
 
 
 def BestHorseForm():
