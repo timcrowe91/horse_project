@@ -22,5 +22,5 @@ six>=1.14
 streamlit
 requests
 datetime
-https://google-coral.github.io/py-repo/ tflite_runtime
+--extra-index-url https://google-coral.github.io/py-repo/ tflite_runtime
 
