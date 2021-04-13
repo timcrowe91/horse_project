@@ -3,6 +3,7 @@ from time import time, sleep
 import pandas as pd
 from data_model.data import BestHorseForm, get_classification, get_linear
 from data_model.preprocessing import filter_new_data 
+import numpy as np
 
 # import requests as re
 # import json
@@ -30,11 +31,12 @@ st.markdown("""# Horse Arbitrator
 uploaded_file = st.file_uploader("Upload a file", type=["csv","npy"])
 if uploaded_file is not None:
     # scaled_X, scaled_y = filter_new_data(uploaded_file)
+    X = np.load(uploaded_file)
     class_model = get_classification()
     linear_model = get_linear()
-    class_prediction = class_model.predict(uploaded_file[0:3])
+    class_prediction = class_model.predict(X[0:3])
     st.write(class_prediction)
-    lin_prediction = linear_model.predict(uploaded_file[0:3])
+    lin_prediction = linear_model.predict(X[0:3])
     st.write(lin_prediction)
 
 
