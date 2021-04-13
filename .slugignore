@@ -8,3 +8,7 @@ raw_data/
 data_model/20-03b.csv
 jupyter_notebooks/
 api/
+Dockerfile
+notebooks/
+tests/
+horse_project/
