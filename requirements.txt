@@ -23,7 +23,6 @@ six>=1.14
 joblib
 
 streamlit
-json
 requests
 datetime
 --extra-index-url https://google-coral.github.io/py-repo/ tflite_runtime
