@@ -20,7 +20,7 @@ import tflite_runtime.interpreter as tflite
 
 
 def get_model():
-    new_model = tflite.Interpreter(model_path='gs://horseracingproject/base_model')
+    new_model = tflite(model_path='gs://horseracingproject/base_model')
     return new_model
 
 
