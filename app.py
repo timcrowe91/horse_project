@@ -27,7 +27,7 @@ st.markdown("""# Horse Arbitrator
 # filename = file_selector()
 # st.write('You selected `%s`' % filename)
 
-uploaded_file = st.file_uploader("Upload a file", type=("csv"))
+uploaded_file = st.file_uploader("Upload a file", type=["csv","npy"])
 if uploaded_file is not None:
     scaled_X, scaled_y = filter_new_data(uploaded_file)
     class_model = get_classification()
