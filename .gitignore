@@ -7,3 +7,4 @@ raw_data/
 .env
 
 data_model/20-03b.csv
+jupyter_notebooks/
