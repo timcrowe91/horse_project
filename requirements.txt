@@ -6,21 +6,27 @@ twine
 wheel>=0.29
 
 # data science
-numpy==1.19.2
+numpy== 1.19.2
 pandas
 scikit-learn
 
 # API
 gcsfs
 google-cloud-storage
+s3fs
 termcolor
 uvicorn 
+fastapi
 
 # utilities
 six>=1.14
+joblib
 
 streamlit
+json
 requests
 datetime
 --extra-index-url https://google-coral.github.io/py-repo/ tflite_runtime
+
+
 
