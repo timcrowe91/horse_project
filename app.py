@@ -2,31 +2,23 @@ import streamlit as st
 from time import time, sleep
 import pandas as pd
 from data_model.data import BestHorseForm, get_classification, get_linear
-from data_model.preprocessing import filter_new_data, final_results
+from data_model.preprocessing import filter_new_data
+from data_model.preprocessing import final_results
 import numpy as np
 
 # import requests as re
 # import json
 
-import base64
-
-@st.cache(allow_output_mutation=True)
-def get_base64_of_bin_file(bin_file):
-    with open(bin_file, 'rb') as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
-
-
-bin_str = get_base64_of_bin_file('horse-race.png')
-page_bg_img = '''
-<style>
-body {
-background-image: url("data:image/png;base64,%s");
-background-size: cover;
+CSS = """
+h1 {
+    color: red;
 }
-</style>
-''' % bin_str
-st.markdown(page_bg_img, unsafe_allow_html=True)
+body {
+    background-image: url(https://i.ibb.co/XWYJQJX/horse-race.png);
+    background-size: cover;
+}
+"""
+st.write(f'<style>{CSS}</style>', unsafe_allow_html=True)
 
 st.markdown("""# Horse Arbitrator
 ## 🐎🐎🐎 Calculates the future odds of each horse perfectly 🐴🐴🐴
