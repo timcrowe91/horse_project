@@ -50,22 +50,24 @@ st.markdown("""# Horse Arbitrator
 uploaded_file = st.file_uploader("Upload X file", type=["csv","npy"])
 uploaded_file_y = st.file_uploader("Upload y_0 file", type=["csv","npy"])
 uploaded_file_yy = st.file_uploader("Upload y_5 file", type=["csv","npy"])
-if uploaded_file, uploaded_file_y, uploaded_file_yy is not None:
+if uploaded_file is not None:
+    if uploaded_file_y is not None:
+        if uploaded_file_yy is not None:
     # scaled_X, scaled_y = filter_new_data(uploaded_file)
-    X = np.load(uploaded_file)
-    y_0 = np.load(uploaded_file_y)
-    y_5 = np.load(uploaded_file_yy)
-    class_model = get_classification()
-    linear_model = get_linear()
-    class_prediction = class_model.predict(X[0:3])
-    a = pd.DataFrame(class_prediction, columns=['down','same','up'])
-    a=a.idxmax(axis=1, skipna=True)
-    b = pd.DataFrame()
-    b['direction'] = a
-    lin_prediction = linear_model.predict(X[0:3])
-    b['pred_prob'] = lin_prediction
-    final_results(y_0[0:3], lin_prediction , y_5, b['direction'])
-    st.write(final_results)
+            X = np.load(uploaded_file)
+            y_0 = np.load(uploaded_file_y)
+            y_5 = np.load(uploaded_file_yy)
+            class_model = get_classification()
+            linear_model = get_linear()
+            class_prediction = class_model.predict(X[0:3])
+            a = pd.DataFrame(class_prediction, columns=['down','same','up'])
+            a=a.idxmax(axis=1, skipna=True)
+            b = pd.DataFrame()
+            b['direction'] = a
+            lin_prediction = linear_model.predict(X[0:3])
+            b['pred_prob'] = lin_prediction
+            final_results(y_0[0:3], lin_prediction , y_5, b['direction'])
+            st.write(final_results)
 
 
 
