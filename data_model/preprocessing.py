@@ -278,6 +278,8 @@ def distance_between_ticks(array, value_1, value_2):
 
 
 def final_results(last_odds_test, y_pred, y_test, direction):
+    min_change = 4
+    stake = 10
     results = pd.DataFrame({"Last_Prob": last_odds_test, "Pred_Prob": y_pred, "True_Prob": y_test})
     results['Last_Odds'] = 1 / results['Last_Prob']
     results['Last_Back'], results['Last_Lay'] = zip(*results['Last_Prob'].apply(lambda x: find_ticks(betfair_ticks, x)))
@@ -288,12 +290,10 @@ def final_results(last_odds_test, y_pred, y_test, direction):
     results['Tick_Change'] = results.apply(lambda x: distance_between_ticks(betfair_ticks, x['Last_Back'], x['Pred_Back']), axis=1)
     results['direction'] = direction
     results['Bet_Type'] = np.where((results['Pred_Lay'] < results['Last_Back']) & (results['direction'] == 'Down',\
-                               "Back", \
-                               np.where((results['Pred_Back'] > results['Last_Lay']) & (results['direction'] == 'Up',\
+                            "Back", \
+                             np.where((results['Pred_Back'] > results['Last_Lay']) & (results['direction'] == 'Up',\
                                 "Lay", "No Bet"))
-    min_change = 4
     results['Min_Tick_Change_Predicted'] = np.where(abs(results['Tick_Change']) >= min_change, 1, 0)
-    stake = 10
     results['PnL_All'] = np.where(results['Bet_Type'] == "Back", stake * (results['Last_Back'] / results['True_Lay'] - 1),\
                                 np.where(results['Bet_Type'] == "Lay", (stake * (1 - results['Last_Lay'] / results['True_Back'])), 0))
     results['PnL_Min%'] = results['PnL_All'] * results['Min_Tick_Change_Predicted']
