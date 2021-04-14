@@ -7,17 +7,18 @@ import numpy as np
 
 # import requests as re
 # import json
-
-CSS = """
-h1 {
-    color: red;
-}
-body {
-    background-image: url(https://i.ibb.co/XWYJQJX/horse-race.png);
-    background-size: cover;
-}
-"""
-st.write(f'<style>{CSS}</style>', unsafe_allow_html=True)
+@st.cache
+def get_css():
+    CSS = """
+    h1 {
+        color: red;
+    }
+    body {
+        background-image: url(https://i.ibb.co/XWYJQJX/horse-race.png);
+        background-size: cover;
+    }
+    """
+    return st.write(f'<style>{CSS}</style>', unsafe_allow_html=True) 
 
 st.markdown("""# Horse Arbitrator
 ## 🐎🐎🐎 Calculates the future odds of each horse perfectly 🐴🐴🐴
@@ -57,7 +58,7 @@ if uploaded_file is not None:
             b['direction'] = a
             lin_prediction = linear_model.predict(X[0:3])
             b['pred_prob'] = lin_prediction
-            final_results(y_0[0:3], lin_prediction , y_5, b['direction'])
+            final_results(y_0[0:3], lin_prediction , y_5[0:3], b['direction'])
             st.write(final_results)
 
 
