@@ -26,9 +26,8 @@ def set_png_as_page_bg(png_file):
     }
     </style>
     ''' % bin_str
-    
-    st.markdown(page_bg_img, unsafe_allow_html=True)
-    return
+
+    return st.markdown(page_bg_img, unsafe_allow_html=True)
 
 set_png_as_page_bg('horse-race.png')
 
