@@ -2,8 +2,7 @@ import streamlit as st
 from time import time, sleep
 import pandas as pd
 from data_model.data import BestHorseForm, get_classification, get_linear
-from data_model.preprocessing import filter_new_data
-from data_model.preprocessing import final_results
+from data_model.preprocessing import filter_new_data, final_results
 import numpy as np
 
 # import requests as re
