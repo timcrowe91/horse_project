@@ -2,7 +2,7 @@ import streamlit as st
 from time import time, sleep
 import pandas as pd
 from data_model.data import BestHorseForm, get_classification, get_linear
-from data_model.preprocessing import filter_new_data 
+from data_model.preprocessing import filter_new_data, final_results
 import numpy as np
 
 # import requests as re
@@ -16,20 +16,17 @@ def get_base64_of_bin_file(bin_file):
         data = f.read()
     return base64.b64encode(data).decode()
 
-def set_png_as_page_bg(png_file):
-    bin_str = get_base64_of_bin_file(png_file)
-    page_bg_img = '''
-    <style>
-    body {
-    background-image: url("data:image/png;base64,%s");
-    background-size: cover;
-    }
-    </style>
-    ''' % bin_str
 
-    return st.markdown(page_bg_img, unsafe_allow_html=True)
-
-set_png_as_page_bg('horse-race.png')
+bin_str = get_base64_of_bin_file('horse-race.png')
+page_bg_img = '''
+<style>
+body {
+background-image: url("data:image/png;base64,%s");
+background-size: cover;
+}
+</style>
+''' % bin_str
+st.markdown(page_bg_img, unsafe_allow_html=True)
 
 st.markdown("""# Horse Arbitrator
 ## 🐎🐎🐎 Calculates the future odds of each horse perfectly 🐴🐴🐴
@@ -50,10 +47,14 @@ st.markdown("""# Horse Arbitrator
 # filename = file_selector()
 # st.write('You selected `%s`' % filename)
 
-uploaded_file = st.file_uploader("Upload a file", type=["csv","npy"])
-if uploaded_file is not None:
+uploaded_file = st.file_uploader("Upload X file", type=["csv","npy"])
+uploaded_file_y = st.file_uploader("Upload y_0 file", type=["csv","npy"])
+uploaded_file_yy = st.file_uploader("Upload y_5 file", type=["csv","npy"])
+if uploaded_file, uploaded_file_y, uploaded_file_yy is not None:
     # scaled_X, scaled_y = filter_new_data(uploaded_file)
     X = np.load(uploaded_file)
+    y_0 = np.load(uploaded_file_y)
+    y_5 = np.load(uploaded_file_yy)
     class_model = get_classification()
     linear_model = get_linear()
     class_prediction = class_model.predict(X[0:3])
@@ -63,7 +64,8 @@ if uploaded_file is not None:
     b['direction'] = a
     lin_prediction = linear_model.predict(X[0:3])
     b['pred_prob'] = lin_prediction
-    st.write(b)
+    final_results(y_0[0:3], lin_prediction , y_5, b['direction'])
+    st.write(final_results)
 
 
 
