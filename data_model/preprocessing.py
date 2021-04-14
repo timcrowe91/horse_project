@@ -290,7 +290,7 @@ def final_results(last_odds_test, y_pred, y_test, direction):
     results['Bet_Type'] = np.where((results['Pred_Lay'] < results['Last_Back']) & (results['direction'] == 'Down',\
                                "Back", \
                                np.where((results['Pred_Back'] > results['Last_Lay']) & (results['direction'] == 'Up',\
-                                "Lay", "No Bet"))+
+                                "Lay", "No Bet"))
     min_change = 4
     results['Min_Tick_Change_Predicted'] = np.where(abs(results['Tick_Change']) >= min_change, 1, 0)
     stake = 10
