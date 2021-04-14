@@ -56,9 +56,12 @@ if uploaded_file is not None:
             a=a.idxmax(axis=1, skipna=True)
             b = pd.DataFrame()
             b['direction'] = a
+            c = []
+            for i in b['direction']:
+                c.append(i)
             lin_prediction = linear_model.predict(X[0:3])
             b['pred_prob'] = lin_prediction
-            final_results(y_0[0:3], lin_prediction , y_5[0:3], b['direction'])
+            final_results(y_0[0:3], lin_prediction , y_5[0:3], c)
             st.write(final_results)
 
 
