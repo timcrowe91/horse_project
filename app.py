@@ -8,9 +8,7 @@ import numpy as np
 # import requests as re
 # import json
 
-
-
- st.markdown(
+st.markdown(
     """
     <style>
     .reportview-container {
@@ -18,8 +16,7 @@ import numpy as np
     }
     </style>
     """,
-    unsafe_allow_html=True
-)
+    unsafe_allow_html=True)
 
 st.markdown("""# Horse Arbitrator
 ## 🐎🐎🐎 Calculates the future odds of each horse perfectly 🐴🐴🐴
