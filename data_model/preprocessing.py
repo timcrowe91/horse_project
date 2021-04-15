@@ -280,7 +280,10 @@ def distance_between_ticks(array, value_1, value_2):
 def final_results(last_odds_test, y_pred, y_test, direction):
     min_change = 4
     stake = 10
-    results = pd.DataFrame({"Last_Prob": last_odds_test, "Pred_Prob": y_pred, "True_Prob": y_test})
+    results = pd.DataFrame()
+    results['Last_Prob'] = last_odds_test
+    results['Pred_Prob'] = y_pred
+    results['True_Prob'] = y_test
     results['Last_Odds'] = 1 / results['Last_Prob']
     results['Last_Back'], results['Last_Lay'] = zip(*results['Last_Prob'].apply(lambda x: find_ticks(betfair_ticks, x)))
     results['Pred_Odds'] = 1 / results['Pred_Prob']
