@@ -8,19 +8,23 @@ import numpy as np
 
 # import requests as re
 # import json
-def get_css():
-    CSS = """
-    h1 {
-        color: red;
-    }
-    body {
-        background-image: url(https://i.ibb.co/XWYJQJX/horse-race.png);
+st.markdown(
+    """
+    <style>
+    .reportview-container {
+        background-image: url("https://i.ibb.co/XWYJQJX/horse-race.png");
         background-size: cover;
     }
-    """
-    return st.write(f'<style>{CSS}</style>', unsafe_allow_html=True) 
+   .sidebar .sidebar-content {
+        background: url("https://i.ibb.co/XWYJQJX/horse-race.png")
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
 
-get_css()
+
+
 st.markdown("""# Horse Arbitrator
 ## 🐎🐎🐎 Calculates the future odds of each horse perfectly 🐴🐴🐴
 ### Here is a list of current horses
@@ -61,7 +65,7 @@ if uploaded_file is not None:
     c = a['same']
     d = a['up']
     lin_prediction = linear_model.predict(X)
-    pred_df=final_results(y_0[0:9,0], lin_prediction[0:9] , y_20[0:9,0], b[0:9],c[0:9],d[0:9])
+    pred_df=final_results(y_0[0:25,0], lin_prediction[0:25] , y_20[0:25,0], b[0:25],c[0:25],d[0:25])
     st.write(pred_df)
 
     
