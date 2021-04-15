@@ -67,10 +67,10 @@ if uploaded_file is not None:
     st.write(y_20s.shape)
     st.write(y_0s.shape)
 
-            lin_prediction = linear_model.predict(X)
-            b['pred_prob'] = lin_prediction
-            pred_df=final_results(y_0[0:9], lin_prediction[0:9] , y_5[0:9], b[0:9],c[0:9],d[0:9])
-            st.write(pred_df)
+# lin_predi ction = linear_model.predict(X)
+# b['pred_prob'] = lin_prediction
+# pred_df=final_results(y_0[0:9], lin_prediction[0:9] , y_5[0:9], b[0:9],c[0:9],d[0:9])
+# st.write(pred_df)
 
 
 
