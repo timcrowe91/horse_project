@@ -62,7 +62,6 @@ if uploaded_file is not None:
             st.write(y_0[0:3])
             st.write(lin_prediction)
             st.write(y_5[0:3])
-            st.write(c)
             final_results(y_0[0:3], lin_prediction , y_5[0:3], b['direction'])
             st.write(final_results)
 
