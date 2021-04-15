@@ -63,7 +63,7 @@ st.markdown("""# Horse Arbitrator
 
 uploaded_file = st.file_uploader("Upload csv file", type=["csv"])
 if uploaded_file is not None:
-    X, y_20s, y_0s = filter_data(uploaded_file)
+    # X, y_20s, y_0s = filter_data(uploaded_file)
     X, y_20s, y_0s = filter_new_data(uploaded_file)
     st.write(X)
     st.write(y_20s)
@@ -77,30 +77,30 @@ if uploaded_file is not None:
 
 
 
-df = pd.DataFrame(columns=['horse_name','back_odds_3','back_avail_3','back_odds_2',\
-                            'back_avail_2','back_odds_1','back_avail_1','lay_odds_1',\
-                            'lay_avail_1','lay_odds_2','lay_avail_2','lay_odds_3','lay_avail_3',\
-                            'last_price','TotalMatched'])
+# df = pd.DataFrame(columns=['horse_name','back_odds_3','back_avail_3','back_odds_2',\
+#                             'back_avail_2','back_odds_1','back_avail_1','lay_odds_1',\
+#                             'lay_avail_1','lay_odds_2','lay_avail_2','lay_odds_3','lay_avail_3',\
+#                             'last_price','TotalMatched'])
 
 
-placeholder = st.empty()
+# placeholder = st.empty()
 
-with placeholder.beta_container():
-    a,b = BestHorseForm()
-    st.markdown(f"### Predictions for event number {b}")
-    st.write(a)
-sleep(5)
+# with placeholder.beta_container():
+#     a,b = BestHorseForm()
+#     st.markdown(f"### Predictions for event number {b}")
+#     st.write(a)
+# sleep(5)
 
 
 
-while True:
-    placeholder.empty()
-    with placeholder.beta_container():
-        a,b = BestHorseForm()
-        st.markdown(f"### Predictions for event number {b}")
-        st.write(a)
-        df = df.append(a)
-    sleep(5)
+# while True:
+#     placeholder.empty()
+#     with placeholder.beta_container():
+#         a,b = BestHorseForm()
+#         st.markdown(f"### Predictions for event number {b}")
+#         st.write(a)
+#         df = df.append(a)
+#     sleep(5)
 
 
 
