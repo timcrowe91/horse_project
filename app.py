@@ -1,7 +1,7 @@
 import streamlit as st
 from time import time, sleep
 import pandas as pd
-from data_model.data import BestHorseForm, get_classification, get_linear
+from data_model.data import BestHorseForm #, get_classification, get_linear
 from data_model.preprocessing_rex import filter_data, filter_new_data, final_results
 import numpy as np
 
@@ -47,32 +47,25 @@ st.markdown("""# Horse Arbitrator
 #     if uploaded_file_y is not None:
 #         if uploaded_file_yy is not None:
 #     # scaled_X, scaled_y = filter_new_data(uploaded_file)
-#             X = np.load(uploaded_file)
-#             y_0 = np.load(uploaded_file_y)
-#             y_5 = np.load(uploaded_file_yy)
-#             class_model = get_classification()
-#             linear_model = get_linear()
-#             class_prediction = class_model.predict(X)
-#             a = pd.DataFrame(class_prediction, columns=['down','same','up'])
-#             b = a['down']
-#             c = a['same']
-#             d = a['up']
-            # lin_prediction = linear_model.predict(X)
-            # b['pred_prob'] = lin_prediction
-            # pred_df=final_results(y_0[0:9], lin_prediction[0:9] , y_5[0:9], b[0:9],c[0:9],d[0:9])
-            # st.write(pred_df)
+#            
 
 uploaded_file = st.file_uploader("Upload csv file", type=["csv"])
 if uploaded_file is not None:
     # X, y_20s, y_0s = filter_data(uploaded_file)
     X, y_20s, y_0s = filter_new_data(uploaded_file)
-    st.write(X)
-    st.write(y_20s)
-    st.write(y_0s)
-    st.write(X.shape)
-    st.write(y_20s.shape)
-    st.write(y_0s.shape)
-
+    X = np.load(X)
+    y_0 = np.load(y_0s)
+    y_20 = np.load(y_20s)
+    class_model = get_classification()
+    linear_model = get_linear()
+    class_prediction = class_model.predict(X)
+    a = pd.DataFrame(class_prediction, columns=['down','same','up'])
+    b = a['down']
+    c = a['same']
+    d = a['up']
+    lin_prediction = linear_model.predict(X)
+    pred_df=final_results(y_0[0:9], lin_prediction[0:9] , y_5[0:9], b[0:9],c[0:9],d[0:9])
+    st.write(pred_df)
 
     
 

@@ -7,6 +7,7 @@ from sklearn.preprocessing import RobustScaler
 # from sklearn.preprocessing import FunctionTransformer
 from pickle import dump
 from pickle import load
+import streamlit as st
 
 
 def mask_first(x):
@@ -120,7 +121,7 @@ def filter_data(csv_file):
     y_20s = []
     X = []
     counter = 1
-
+    horse_races = df_resorted['Horse_Race'].unique()
     for horse in horse_races:
         # track progress of the loop by displaying iteration counts by 250s
         if counter%1000 == 0:
@@ -218,7 +219,7 @@ def filter_new_data(csv_file):
     X = []
 
     counter = 1
-    st.write(horse_races)
+    horse_races = df_resorted['Horse_Race'].unique()
     for horse in horse_races:
         # track progress of the loop by displaying iteration counts by 250s
         if counter%1000 == 0:
