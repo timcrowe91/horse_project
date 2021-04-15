@@ -52,7 +52,7 @@ st.markdown("""# Horse Arbitrator
 uploaded_file = st.file_uploader("Upload csv file", type=["csv"])
 if uploaded_file is not None:
     # X, y_20s, y_0s = filter_data(uploaded_file)
-    X, y_20s, y_0s = filter_new_data(uploaded_file)
+    X, y_20, y_0 = filter_new_data(uploaded_file)
     class_model = get_classification()
     linear_model = get_linear()
     class_prediction = class_model.predict(X)
@@ -61,7 +61,7 @@ if uploaded_file is not None:
     c = a['same']
     d = a['up']
     lin_prediction = linear_model.predict(X)
-    pred_df=final_results(y_0[0:9], lin_prediction[0:9] , y_5[0:9], b[0:9],c[0:9],d[0:9])
+    pred_df=final_results(y_0[0:9], lin_prediction[0:9] , y_20[0:9], b[0:9],c[0:9],d[0:9])
     st.write(pred_df)
 
     
