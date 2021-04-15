@@ -78,115 +78,103 @@ def mask_first(x):
 
 
 
-# def filter_data(csv_file):
-#     start= 12
-#     length = 37
-#     df = pd.read_csv(csv_file)
-#     df = df[~df['Horse'].str.endswith("(NR)")]
-#     df = df.sort_values(["Race", "TimeToOff"], ascending=[True, False])
-#     df['SecondsToOff'] = round(df['TimeToOff'] * 24 * 60 * 60)
-#     df['TimeDiff'] = - df['SecondsToOff'].diff()
-#     df_group = df[df['TimeDiff'] > 0].groupby("Race").agg({'TimeDiff': ['mean', 'min', 'max', 'count'], 'Book': ['min', 'max']})
-#     df_races = df_group[(df_group['TimeDiff']['min'] >= 4) & (df_group['TimeDiff']['max'] <= 6) & \
-#          (df_group['TimeDiff']['mean'].between(4.98, 5.02)) & (df_group['TimeDiff']['count'] >= 58) & \
-#          (df_group['Book']['min'] >= 0.985) & (df_group['Book']['max'] <= 1.015)]
-#     df_filtered = df[df['Race'].isin(df_races.index)].sort_values(['Race', 'Horse', 'SecondsToOff'], ascending = [True, True, False])
-#     df_filtered['MatchedDiff'] = df_filtered['TotalMatched'].diff()
-#     df_filtered['Horse_Race'] = df_filtered['Horse'] + df_filtered['Race']
-#     horse_races = df_filtered['Horse_Race'].unique()
-#     df_filtered.reset_index(inplace=True, drop=True)
-#     mask = df_filtered.groupby(['Horse_Race'])['Horse_Race'].transform(mask_first).astype(bool)
-#     df_matched_filtered = df_filtered[mask]
-#     df_matched_filtered_grouped = df_matched_filtered.groupby("Horse_Race").agg({"MatchedDiff": ["min"]})
-#     df_horses_matched_neg = df_matched_filtered_grouped[df_matched_filtered_grouped['MatchedDiff']['min'] < 0].index
-#     df_filtered_preodds = df_matched_filtered[~ df_matched_filtered['Horse_Race'].isin(df_horses_matched_neg)]
-#     df_odds_filter = df_filtered_preodds.groupby("Horse_Race").agg({"BackOdds1": ["max", "min"]})
-#     df_horses_high_odds = df_odds_filter[(df_odds_filter['BackOdds1']['min'] >= 1.01) & (df_odds_filter['BackOdds1']['max'] < 100)].index
-#     df_filtered_final = df_filtered_preodds[df_filtered_preodds['Horse_Race'].isin(df_horses_high_odds)]
-#     df = df_filtered_final.copy()
-#     df['Implied_Prob'] = 1 / (0.5 * (df['BackOdds1'] + df['LayOdds1']))
-#     df['Pressure1'] = df['BackAvail1'] / (df['BackAvail1'] + df['LayAvail1'])
-#     df['Pressure2'] = df['BackAvail2'] / (df['BackAvail2'] + df['LayAvail2'])
-#     df['Pressure3'] = df['BackAvail3'] / (df['BackAvail3'] + df['LayAvail3'])
-#     df['Matched_Percentage'] = df['MatchedDiff'] / df['TotalMatched']
+def filter_data(csv_file):
+    start= 12
+    length = 37
+    df = pd.read_csv(csv_file)
+    df = df[~df['Horse'].str.endswith("(NR)")]
+    df = df.sort_values(["Race", "TimeToOff"], ascending=[True, False])
+    df['SecondsToOff'] = round(df['TimeToOff'] * 24 * 60 * 60)
+    df['TimeDiff'] = - df['SecondsToOff'].diff()
+    df_group = df[df['TimeDiff'] > 0].groupby("Race").agg({'TimeDiff': ['mean', 'min', 'max', 'count'], 'Book': ['min', 'max']})
+    df_races = df_group[(df_group['TimeDiff']['min'] >= 4) & (df_group['TimeDiff']['max'] <= 6) & \
+         (df_group['TimeDiff']['mean'].between(4.98, 5.02)) & (df_group['TimeDiff']['count'] >= 58) & \
+         (df_group['Book']['min'] >= 0.985) & (df_group['Book']['max'] <= 1.015)]
+    df_filtered = df[df['Race'].isin(df_races.index)].sort_values(['Race', 'Horse', 'SecondsToOff'], ascending = [True, True, False])
+    df_filtered['MatchedDiff'] = df_filtered['TotalMatched'].diff()
+    df_filtered['Horse_Race'] = df_filtered['Horse'] + df_filtered['Race']
+    horse_races = df_filtered['Horse_Race'].unique()
+    df_filtered.reset_index(inplace=True, drop=True)
+    mask = df_filtered.groupby(['Horse_Race'])['Horse_Race'].transform(mask_first).astype(bool)
+    df_matched_filtered = df_filtered[mask]
+    df_matched_filtered_grouped = df_matched_filtered.groupby("Horse_Race").agg({"MatchedDiff": ["min"]})
+    df_horses_matched_neg = df_matched_filtered_grouped[df_matched_filtered_grouped['MatchedDiff']['min'] < 0].index
+    df_filtered_preodds = df_matched_filtered[~ df_matched_filtered['Horse_Race'].isin(df_horses_matched_neg)]
+    df_odds_filter = df_filtered_preodds.groupby("Horse_Race").agg({"BackOdds1": ["max", "min"]})
+    df_horses_high_odds = df_odds_filter[(df_odds_filter['BackOdds1']['min'] >= 1.01) & (df_odds_filter['BackOdds1']['max'] < 100)].index
+    df_filtered_final = df_filtered_preodds[df_filtered_preodds['Horse_Race'].isin(df_horses_high_odds)]
+    df = df_filtered_final.copy()
+    df['Implied_Prob'] = 1 / (0.5 * (df['BackOdds1'] + df['LayOdds1']))
+    df['Pressure1'] = df['BackAvail1'] / (df['BackAvail1'] + df['LayAvail1'])
+    df['Pressure2'] = df['BackAvail2'] / (df['BackAvail2'] + df['LayAvail2'])
+    df['Pressure3'] = df['BackAvail3'] / (df['BackAvail3'] + df['LayAvail3'])
+    df['Matched_Percentage'] = df['MatchedDiff'] / df['TotalMatched']
 
 
-#     r_scaler = RobustScaler() # Instanciate Robust Scaler
-#     r_scaler.fit(df[['Implied_Prob', 'Pressure1', 'Pressure2', 'Pressure3', 'Matched_Percentage']])
-#     dump(r_scaler, open('robust_scaler.pkl', 'wb') ) # Fit scaler to feature
-#     df[['Implied_Prob_s', 'Pressure1_s', 'Pressure2_s', 'Pressure3_s', 'Matched_Percentage_s']] = \
-#         r_scaler.transform(df[['Implied_Prob', 'Pressure1', 'Pressure2', 'Pressure3', 'Matched_Percentage']]) #Scale
+    r_scaler = RobustScaler() # Instanciate Robust Scaler
+    r_scaler.fit(df[['Implied_Prob', 'Pressure1', 'Pressure2', 'Pressure3', 'Matched_Percentage']])
+    dump(r_scaler, open('robust_scaler.pkl', 'wb') ) # Fit scaler to feature
+    df[['Implied_Prob_s', 'Pressure1_s', 'Pressure2_s', 'Pressure3_s', 'Matched_Percentage_s']] = \
+        r_scaler.transform(df[['Implied_Prob', 'Pressure1', 'Pressure2', 'Pressure3', 'Matched_Percentage']]) #Scale
     
 
-#     df.reset_index(inplace=True, drop=True)
-#     df_resorted = df.sort_values(by=['Horse_Race','SecondsToOff'], ascending=[True, True])
-#     df_resorted.reset_index(inplace=True, drop=True)
+    df.reset_index(inplace=True, drop=True)
+    df_resorted = df.sort_values(by=['Horse_Race','SecondsToOff'], ascending=[True, True])
+    df_resorted.reset_index(inplace=True, drop=True)
 
 
-#      y_0s = []
-#      y_20s = []
-#      X = []
+    y_0s = []
+    y_20s = []
+    X = []
+    counter = 1
 
-#     counter = 1
-
-#     for horse in horse_races:
-#         # track progress of the loop by displaying iteration counts by 250s
-#         if counter%1000 == 0:
-#             print(f"Iteration: {counter}")
-#         counter+=1
+    for horse in horse_races:
+        # track progress of the loop by displaying iteration counts by 250s
+        if counter%1000 == 0:
+            print(f"Iteration: {counter}")
+        counter+=1
         
-#         # convert all rows of a certain horse/race combo to a unique dataframe
-#         sub_df = pd.DataFrame(df_resorted[df_resorted['Horse_Race'] == horse])
+        # convert all rows of a certain horse/race combo to a unique dataframe
+        sub_df = pd.DataFrame(df_resorted[df_resorted['Horse_Race'] == horse])
         
-#         # pull a sequence of rows and columns from that dataframe
-#         X_subsample = sub_df[start:start+length-1][['Implied_Prob_s', 
-#                                                     'Pressure1_s', 
-#                                                     'Pressure2_s', 
-#                                                     'Pressure3_s', 
-#                                                     'Matched_Percentage_s']]
+        # pull a sequence of rows and columns from that dataframe
+        X_subsample = sub_df[start:start+length-1][['Implied_Prob_s', 
+                                                    'Pressure1_s', 
+                                                    'Pressure2_s', 
+                                                    'Pressure3_s', 
+                                                    'Matched_Percentage_s']]
         
-#         y_subsample_0s = sub_df.iloc[start][['Implied_Prob']]
-#         y_subsample_5s = sub_df.iloc[start-1][['Implied_Prob']]
-#         y_subsample_10s = sub_df.iloc[start-2][['Implied_Prob']]
-#         y_subsample_15s = sub_df.iloc[start-3][['Implied_Prob']]
-#         y_subsample_20s = sub_df.iloc[start-4][['Implied_Prob']]
-#         y_subsample_25s = sub_df.iloc[start-5][['Implied_Prob']]
-#         y_subsample_30s = sub_df.iloc[start-6][['Implied_Prob']]
-
-            # # append that sequence to a list
-        # X.append(X_subsample)
-        # y_0s.append(y_subsample_0s)
-        # y_20s.append(y_subsample_20s)
-
-
-        # convert lists to numpy arrays
-
-#         y_0s = np.array(y_0s)
-#         y_20s = np.array(y_20s)
-#         X = np.array(X)
-
-
+        y_subsample_0s = sub_df.iloc[start][['Implied_Prob']]
+        y_subsample_5s = sub_df.iloc[start-1][['Implied_Prob']]
+        y_subsample_10s = sub_df.iloc[start-2][['Implied_Prob']]
+        y_subsample_15s = sub_df.iloc[start-3][['Implied_Prob']]
+        y_subsample_20s = sub_df.iloc[start-4][['Implied_Prob']]
+        y_subsample_25s = sub_df.iloc[start-5][['Implied_Prob']]
+        y_subsample_30s = sub_df.iloc[start-6][['Implied_Prob']]
         
-# #         # flip axis 1 of the X array
-# #         '''because X has been sorted in reverse chronological order, 
-# #         its time values must be flipped back before introducing them 
-# #         to the model for training'''
-# #         X = np.flip(X, axis=1)
+        
 
-#     # convert lists to numpy arrays
 
-#     y_0s = np.array(y_0s)
-#     y_20s = np.array(y_20s)
-#     X = np.array(X)
+       
+        # append that sequence to a list
+        X.append(X_subsample)
+        y_0s.append(y_subsample_0s)
+        y_20s.append(y_subsample_20s)
+
+    # convert lists to numpy arrays
+    y_0s = np.array(y_0s)
+    y_20s = np.array(y_20s)
+    X = np.array(X)
 
         
-#     # flip axis 1 of the X array
-#     '''because X has been sorted in reverse chronological order, 
-#     its time values must be flipped back before introducing them 
-#     to the model for training'''
-#     X = np.flip(X, axis=1)
+    # flip axis 1 of the X array
+    '''because X has been sorted in reverse chronological order, 
+    its time values must be flipped back before introducing them 
+    to the model for training'''
+    X = np.flip(X, axis=1)
 
-#     return X, y_20s, y_0s
+
+    return X, y_20s, y_0s
 
 
 def filter_new_data(csv_file):
@@ -262,12 +250,9 @@ def filter_new_data(csv_file):
         y_0s.append(y_subsample_0s)
         y_20s.append(y_subsample_20s)
     
-
-    # convert lists to numpy arrays
     X = np.array(X)
     y_0s = np.array(y_0s)
     y_20s = np.array(y_20s)
-        
     # flip axis 1 of the X array
     '''because X has been sorted in reverse chronological order, its 
     time values must be flipped back to chrono order (counting down 
@@ -334,18 +319,13 @@ def final_results(last_odds_test, y_pred, y_test, direction):
     results['True_Back'], results['True_Lay'] = zip(*results['True_Prob'].apply(lambda x: find_ticks(betfair_ticks, x)))
     results['Tick_Change'] = results.apply(lambda x: distance_between_ticks(betfair_ticks, x['Last_Back'], x['Pred_Back']), axis=1)
     results['direction'] = direction
-    # results['Bet_Type'] = np.where((results['Pred_Lay'] < results['Last_Back']) & (results['direction'] == 'Down','Back', np.where((results['Pred_Back'] > results['Last_Lay']) & (results['direction'] == 'Up','Lay', 'No Bet'))
-    # abba = 1
-    bets=[]
-    for i in results['direction']:
-        if i == 'Down':
-            bets.append('Back')
-        elif i == 'Up':
-            bets.append('Lay')
-        else:
-            bets.append('No Bet')
-    results['Bet_Type']= bets
-
+    results['Down'] = down
+    results['Same'] = same
+    results['Up'] = up
+    results['Bet_Type'] = np.where((results['Pred_Lay'] < results['Last_Back']) & (results['Down'] == results[['Down', 'Up', 'Same']].max(axis=1)),\
+                               "Back", \
+                               np.where((results['Pred_Back'] > results['Last_Lay']) & (results['Up'] == results[['Down', 'Up', 'Same']].max(axis=1)),\
+                                "Lay", "No Bet"))
     results['Min_Tick_Change_Predicted'] = np.where(abs(results['Tick_Change']) >= min_change, 1, 0)
     results['PnL_All'] = np.where(results['Bet_Type'] == "Back", stake * (results['Last_Back'] / results['True_Lay'] - 1),\
                                 np.where(results['Bet_Type'] == "Lay", (stake * (1 - results['Last_Lay'] / results['True_Back'])), 0))
