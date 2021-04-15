@@ -7,7 +7,6 @@ from sklearn.preprocessing import RobustScaler
 # from sklearn.preprocessing import FunctionTransformer
 from pickle import dump
 from pickle import load
-import streamlit as st
 
 
 def mask_first(x):
