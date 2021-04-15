@@ -280,6 +280,7 @@ def distance_between_ticks(array, value_1, value_2):
 def final_results(last_odds_test, y_pred, y_test, direction):
     min_change = 4
     stake = 10
+    betfair_ticks = pd.read_csv("data_model/BetfairTicks.csv")['Price']
     results = pd.DataFrame()
     results['Last_Prob'] = last_odds_test
     results['Pred_Prob'] = y_pred
