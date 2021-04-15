@@ -5,6 +5,7 @@ from data_model.data import BestHorseForm , get_classification, get_linear
 from data_model.preprocessing_rex import filter_data, filter_new_data, final_results
 import numpy as np
 
+
 st.markdown(
     """
     <style>
@@ -19,6 +20,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
     )
+
 
 st.markdown("""# Horse Arbitrator
 ## 🐎🐎🐎 Calculates the future odds of each horse perfectly 🐴🐴🐴
@@ -55,12 +57,14 @@ if uploaded_file is not None:
     class_model = get_classification()
     linear_model = get_linear()
     class_prediction = class_model.predict(X)
+
     lin_prediction = linear_model.predict(X)
     pred_df, real_pnl, mm_pnl, perc_correct, numbets = final_results(y_0, lin_prediction, y_20, class_prediction)
     st.markdown(f'Total PnL: {real_pnl}')
     st.markdown(f'Theoretical Mid-Market PnL: {mm_pnl}')
     st.markdown(f'% Correctly Predicted Price Movement: {perc_correct}')
     st.markdown(f'Number of Bets: {numbets}')
+
     st.write(pred_df)
 
     

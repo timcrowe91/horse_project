@@ -106,7 +106,7 @@ def filter_data(csv_file):
 
     r_scaler = RobustScaler() # Instanciate Robust Scaler
     r_scaler.fit(df[['Implied_Prob', 'Pressure1', 'Pressure2', 'Pressure3', 'Matched_Percentage']])
-    dump(r_scaler, open('data_model/r-scaler.pkl', 'wb') ) # Fit scaler to feature
+    dump(r_scaler, open('r-scaler.pkl', 'wb') ) # Fit scaler to feature
     df[['Implied_Prob_s', 'Pressure1_s', 'Pressure2_s', 'Pressure3_s', 'Matched_Percentage_s']] = \
         r_scaler.transform(df[['Implied_Prob', 'Pressure1', 'Pressure2', 'Pressure3', 'Matched_Percentage']]) #Scale
     
