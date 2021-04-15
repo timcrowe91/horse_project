@@ -61,7 +61,7 @@ st.markdown("""# Horse Arbitrator
             # pred_df=final_results(y_0[0:9], lin_prediction[0:9] , y_5[0:9], b[0:9],c[0:9],d[0:9])
             # st.write(pred_df)
 
-uploaded_file = st.file_uploader("Upload csv file", type=["csv","npy"])
+uploaded_file = st.file_uploader("Upload csv file", type=["csv"])
 if uploaded_file is not None:
     X, y_20s, y_0s = filter_data(uploaded_file)
     X, y_20s, y_0s = filter_new_data(uploaded_file)
