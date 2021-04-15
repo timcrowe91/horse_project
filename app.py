@@ -51,15 +51,15 @@ if uploaded_file is not None:
             y_5 = np.load(uploaded_file_yy)
             class_model = get_classification()
             linear_model = get_linear()
-            class_prediction = class_model.predict(X[0:3])
+            class_prediction = class_model.predict(X)
             a = pd.DataFrame(class_prediction, columns=['down','same','up'])
             b = a['down']
             c = a['same']
             d = a['up']
 
-            lin_prediction = linear_model.predict(X[0:3])
+            lin_prediction = linear_model.predict(X)
             b['pred_prob'] = lin_prediction
-            pred_df=final_results(y_0[0:3], lin_prediction , y_5[0:3], b,c,d)
+            pred_df=final_results(y_0, lin_prediction , y_5, b,c,d)
             st.write(pred_df)
 
 
