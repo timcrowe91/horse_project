@@ -1,7 +1,7 @@
 import streamlit as st
 from time import time, sleep
 import pandas as pd
-from data_model.data import BestHorseForm #, get_classification, get_linear
+from data_model.data import BestHorseForm , get_classification, get_linear
 from data_model.preprocessing_rex import filter_data, filter_new_data, final_results
 import numpy as np
 
