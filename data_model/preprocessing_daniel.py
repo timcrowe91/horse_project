@@ -16,64 +16,64 @@ def mask_first(x):
     return result
 
 
-def get_X_y(df, number_of_sequences, length):
+# def get_X_y(df, number_of_sequences, length):
     
-    X = []
-    y_0s = []
-    y_5s = []
-    y_10s = []
-    y_15s = []
-    y_20s = []
-    y_25s = []
-    y_30s = []
+#     X = []
+#     y_0s = []
+#     y_5s = []
+#     y_10s = []
+#     y_15s = []
+#     y_20s = []
+#     y_25s = []
+#     y_30s = []
 
-    counter = 1
+#     counter = 1
 
-    for horse in horse_races:
-        # track progress of the loop by displaying iteration counts by 250s
-        if counter%1000 == 0:
-            print(f"Iteration: {counter}")
-        counter+=1
+#     for horse in horse_races:
+#         # track progress of the loop by displaying iteration counts by 250s
+#         if counter%1000 == 0:
+#             print(f"Iteration: {counter}")
+#         counter+=1
         
-        # convert all rows of a certain horse/race combo to a unique dataframe
-        sub_df = pd.DataFrame(df_resorted[df_resorted['Horse_Race'] == horse])
+#         # convert all rows of a certain horse/race combo to a unique dataframe
+#         sub_df = pd.DataFrame(df_resorted[df_resorted['Horse_Race'] == horse])
         
-        # pull a sequence of rows and columns from that dataframe
-        X_subsample = sub_df[start:start+length-1][['Implied_Prob_s', 
-                                                    'Pressure1_s', 
-                                                    'Pressure2_s', 
-                                                    'Pressure3_s', 
-                                                    'Matched_Percentage_s']]
+#         # pull a sequence of rows and columns from that dataframe
+#         X_subsample = sub_df[start:start+length-1][['Implied_Prob_s', 
+#                                                     'Pressure1_s', 
+#                                                     'Pressure2_s', 
+#                                                     'Pressure3_s', 
+#                                                     'Matched_Percentage_s']]
         
-        y_subsample_0s = sub_df.iloc[start][['Implied_Prob']]
-        y_subsample_5s = sub_df.iloc[start-1][['Implied_Prob']]
-        y_subsample_10s = sub_df.iloc[start-2][['Implied_Prob']]
-        y_subsample_15s = sub_df.iloc[start-3][['Implied_Prob']]
-        y_subsample_20s = sub_df.iloc[start-4][['Implied_Prob']]
-        y_subsample_25s = sub_df.iloc[start-5][['Implied_Prob']]
-        y_subsample_30s = sub_df.iloc[start-6][['Implied_Prob']]
+#         y_subsample_0s = sub_df.iloc[start][['Implied_Prob']]
+#         y_subsample_5s = sub_df.iloc[start-1][['Implied_Prob']]
+#         y_subsample_10s = sub_df.iloc[start-2][['Implied_Prob']]
+#         y_subsample_15s = sub_df.iloc[start-3][['Implied_Prob']]
+#         y_subsample_20s = sub_df.iloc[start-4][['Implied_Prob']]
+#         y_subsample_25s = sub_df.iloc[start-5][['Implied_Prob']]
+#         y_subsample_30s = sub_df.iloc[start-6][['Implied_Prob']]
         
         
-        # append that sequence to a list
-        X.append(X_subsample)
-        y_0s.append(y_subsample_0s)
-        y_5s.append(y_subsample_5s)
-        y_10s.append(y_subsample_10s)
-        y_15s.append(y_subsample_15s)
-        y_20s.append(y_subsample_20s)
-        y_25s.append(y_subsample_25s)
-        y_30s.append(y_subsample_30s)
+#         # append that sequence to a list
+#         X.append(X_subsample)
+#         y_0s.append(y_subsample_0s)
+#         y_5s.append(y_subsample_5s)
+#         y_10s.append(y_subsample_10s)
+#         y_15s.append(y_subsample_15s)
+#         y_20s.append(y_subsample_20s)
+#         y_25s.append(y_subsample_25s)
+#         y_30s.append(y_subsample_30s)
         
-    return np.array(X), np.array(y_0s), np.array(y_5s), np.array(y_10s), np.array(y_15s), np.array(y_20s), np.array(y_25s), np.array(y_30s)
+#     return np.array(X), np.array(y_0s), np.array(y_5s), np.array(y_10s), np.array(y_15s), np.array(y_20s), np.array(y_25s), np.array(y_30s)
 
 
-def get_start_point(df, length, start_points):
-    start = np.random.randint(0, high=df.shape[0] - length)
+# def get_start_point(df, length, start_points):
+#     start = np.random.randint(0, high=df.shape[0] - length)
     
-    if start in start_points:
-        start = get_start_point(df, length, start_points)
+#     if start in start_points:
+#         start = get_start_point(df, length, start_points)
         
-    return start
+#     return start
 
 
 
