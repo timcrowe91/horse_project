@@ -251,33 +251,17 @@ def filter_new_data(csv_file):
                                                     'Matched_Percentage_s']]
         
         y_subsample_0s = sub_df.iloc[start][['Implied_Prob']]
-        y_subsample_5s = sub_df.iloc[start-1][['Implied_Prob']]
-        y_subsample_10s = sub_df.iloc[start-2][['Implied_Prob']]
-        y_subsample_15s = sub_df.iloc[start-3][['Implied_Prob']]
         y_subsample_20s = sub_df.iloc[start-4][['Implied_Prob']]
-        y_subsample_25s = sub_df.iloc[start-5][['Implied_Prob']]
-        y_subsample_30s = sub_df.iloc[start-6][['Implied_Prob']]
-        
         
         # append that sequence to a list
         X.append(X_subsample)
         y_0s.append(y_subsample_0s)
-        y_5s.append(y_subsample_5s)
-        y_10s.append(y_subsample_10s)
-        y_15s.append(y_subsample_15s)
         y_20s.append(y_subsample_20s)
-        y_25s.append(y_subsample_25s)
-        y_30s.append(y_subsample_30s)
-
+    
         # convert lists to numpy arrays
+        X = np.array(X)
         y_0s = np.array(y_0s)
-        y_5s = np.array(y_5s)
-        y_10s = np.array(y_10s)
-        y_15s = np.array(y_15s)
         y_20s = np.array(y_20s)
-        y_25s = np.array(y_25s)
-        y_30s = np.array(y_30s)
-
         
         # flip axis 1 of the X array
         '''because X has been sorted in reverse chronological order, its 
@@ -285,7 +269,7 @@ def filter_new_data(csv_file):
         to race start)before they can be introduced to the model for training'''
         X = np.flip(X_array, axis=1)
 
-    return X, y_20s
+    return X, y_20s, y_0s
 
 
 def find_ticks(array, value):
