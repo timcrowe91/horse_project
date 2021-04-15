@@ -217,14 +217,9 @@ def filter_new_data(csv_file):
     df_resorted.reset_index(inplace=True, drop=True)
 
 
-    X = []
     y_0s = []
-    y_5s = []
-    y_10s = []
-    y_15s = []
     y_20s = []
-    y_25s = []
-    y_30s = []
+    X = []
 
     counter = 1
 
