@@ -106,7 +106,7 @@ def filter_data(csv_file):
 
     r_scaler = RobustScaler() # Instanciate Robust Scaler
     r_scaler.fit(df[['Implied_Prob', 'Pressure1', 'Pressure2', 'Pressure3', 'Matched_Percentage']])
-    dump(r_scaler, open('data_model/r-scaler.pkl', 'wb') ) # Fit scaler to feature
+    dump(r_scaler, open('r-scaler.pkl', 'wb') ) # Fit scaler to feature
     df[['Implied_Prob_s', 'Pressure1_s', 'Pressure2_s', 'Pressure3_s', 'Matched_Percentage_s']] = \
         r_scaler.transform(df[['Implied_Prob', 'Pressure1', 'Pressure2', 'Pressure3', 'Matched_Percentage']]) #Scale
     
@@ -301,7 +301,8 @@ def final_results(last_odds_test, y_pred, y_test, down, same, up):
     min_change = 4
     stake = 10
     betfair_ticks = pd.read_csv("data_model/BetfairTicks.csv")['Price']
-    results = pd.DataFrame(last_odds_test, columns='Last_Prob')
+    results = pd.DataFrame()
+    results['Last_Prob'] = last_odds_test
     results['Pred_Prob'] = y_pred
     results['True_Prob'] = y_test
     results['Last_Odds'] = 1 / results['Last_Prob']
