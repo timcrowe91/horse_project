@@ -39,23 +39,27 @@ st.markdown("""# Horse Arbitrator
 # filename = file_selector()
 # st.write('You selected `%s`' % filename)
 
-# uploaded_file = st.file_uploader("Upload csv file", type=["csv","npy"])
-# uploaded_file_y = st.file_uploader("Upload y_0 file", type=["csv","npy"])
-# uploaded_file_yy = st.file_uploader("Upload y_5 file", type=["csv","npy"])
-# if uploaded_file is not None:
-#     if uploaded_file_y is not None:
-#         if uploaded_file_yy is not None:
-#     # scaled_X, scaled_y = filter_new_data(uploaded_file)
-#             X = np.load(uploaded_file)
-#             y_0 = np.load(uploaded_file_y)
-#             y_5 = np.load(uploaded_file_yy)
-#             class_model = get_classification()
-#             linear_model = get_linear()
-#             class_prediction = class_model.predict(X)
-#             a = pd.DataFrame(class_prediction, columns=['down','same','up'])
-#             b = a['down']
-#             c = a['same']
-#             d = a['up']
+uploaded_file = st.file_uploader("Upload csv file", type=["csv","npy"])
+uploaded_file_y = st.file_uploader("Upload y_0 file", type=["csv","npy"])
+uploaded_file_yy = st.file_uploader("Upload y_5 file", type=["csv","npy"])
+if uploaded_file is not None:
+    if uploaded_file_y is not None:
+        if uploaded_file_yy is not None:
+    # scaled_X, scaled_y = filter_new_data(uploaded_file)
+            X = np.load(uploaded_file)
+            y_0 = np.load(uploaded_file_y)
+            y_5 = np.load(uploaded_file_yy)
+            class_model = get_classification()
+            linear_model = get_linear()
+            class_prediction = class_model.predict(X)
+            a = pd.DataFrame(class_prediction, columns=['down','same','up'])
+            b = a['down']
+            c = a['same']
+            d = a['up']
+            lin_prediction = linear_model.predict(X)
+            b['pred_prob'] = lin_prediction
+            pred_df=final_results(y_0[0:9], lin_prediction[0:9] , y_5[0:9], b[0:9],c[0:9],d[0:9])
+            st.write(pred_df)
 
 uploaded_file = st.file_uploader("Upload csv file", type=["csv","npy"])
 if uploaded_file is not None:
@@ -67,10 +71,7 @@ if uploaded_file is not None:
     st.write(y_20s.shape)
     st.write(y_0s.shape)
 
-            lin_prediction = linear_model.predict(X)
-            b['pred_prob'] = lin_prediction
-            pred_df=final_results(y_0[0:9], lin_prediction[0:9] , y_5[0:9], b[0:9],c[0:9],d[0:9])
-            st.write(pred_df)
+    
 
 
 
