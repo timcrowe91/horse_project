@@ -20,11 +20,11 @@ from tensorflow.keras.models import load_model
 
 
 def get_classification():
-    new_model  = load_model('data_model/gru_model_842_class.h5')
+    new_model  = load_model('data_model/Final-Classification-Model.h5')
     return new_model
 
 def get_linear():
-    new_model  = load_model('data_model/gru_model_842_linear.h5')
+    new_model  = load_model('data_model/Final-Linear-Model.h5')
     return new_model
 
 
