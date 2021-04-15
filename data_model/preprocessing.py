@@ -277,7 +277,7 @@ def distance_between_ticks(array, value_1, value_2):
     return distance
 
 
-def final_results(last_odds_test, y_pred, y_test, direction):
+def final_results(last_odds_test, y_pred, y_test, down, same, up):
     min_change = 4
     stake = 10
     betfair_ticks = pd.read_csv("data_model/BetfairTicks.csv")['Price']
@@ -292,19 +292,14 @@ def final_results(last_odds_test, y_pred, y_test, direction):
     results['True_Odds'] = 1 / results['True_Prob']
     results['True_Back'], results['True_Lay'] = zip(*results['True_Prob'].apply(lambda x: find_ticks(betfair_ticks, x)))
     results['Tick_Change'] = results.apply(lambda x: distance_between_ticks(betfair_ticks, x['Last_Back'], x['Pred_Back']), axis=1)
-    results['direction'] = direction
-    # results['Bet_Type'] = np.where((results['Pred_Lay'] < results['Last_Back']) & (results['direction'] == 'Down','Back', np.where((results['Pred_Back'] > results['Last_Lay']) & (results['direction'] == 'Up','Lay', 'No Bet'))
-    # abba = 1
-    bets=[]
-    for i in results['direction']:
-        if i == 'Down':
-            bets.append('Back')
-        elif i == 'Up':
-            bets.append('Lay')
-        else:
-            bets.append('No Bet')
-    results['Bet_Type']= bets
-
+    results['Down'] = down
+    results['Same'] = same
+    results['Up'] = up
+    results['Bet_Type'] = np.where((results['Pred_Lay'] < results['Last_Back']) & (results['Down'] == results[['Down', 'Up', 'Same']].max(axis=1)),\
+                               "Back", \
+                               np.where((results['Pred_Back'] > results['Last_Lay']) & (results['Up'] == results[['Down', 'Up', 'Same']].max(axis=1)),\
+                                "Lay", "No Bet"))
+  
     results['Min_Tick_Change_Predicted'] = np.where(abs(results['Tick_Change']) >= min_change, 1, 0)
     results['PnL_All'] = np.where(results['Bet_Type'] == "Back", stake * (results['Last_Back'] / results['True_Lay'] - 1),\
                                 np.where(results['Bet_Type'] == "Lay", (stake * (1 - results['Last_Lay'] / results['True_Back'])), 0))
@@ -312,4 +307,5 @@ def final_results(last_odds_test, y_pred, y_test, direction):
     results['PnL_Midpoint'] = np.where(results['Bet_Type'] == "Back", stake * (results['Last_Odds'] / results['True_Odds'] - 1),\
                                 np.where(results['Bet_Type'] == "Lay", (stake * (1 - results['Last_Odds'] / results['True_Odds'])), 0))
     results['PnL_Min%_MM'] = results['PnL_Midpoint'] * results['Min_Tick_Change_Predicted']
-    return results
+    display = pd.DataFrame(results[['Last_Odds', 'Last_Back','Last_Lay','Pred_Odds','Pred_Back','Pred_Lay','True_Odds','True_Back','True_Lay','Bet_Type','PnL_Min%','PnL_Min%_MM']])
+    return display

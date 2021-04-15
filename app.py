@@ -53,12 +53,13 @@ if uploaded_file is not None:
             linear_model = get_linear()
             class_prediction = class_model.predict(X[0:3])
             a = pd.DataFrame(class_prediction, columns=['down','same','up'])
-            a=a.idxmax(axis=1, skipna=True)
-            b = pd.DataFrame()
-            b['direction'] = a
+            b = a['down']
+            c = a['same']
+            d = a['up']
+
             lin_prediction = linear_model.predict(X[0:3])
             b['pred_prob'] = lin_prediction
-            pred_df=final_results(y_0[0:3], lin_prediction , y_5[0:3], b['direction'])
+            pred_df=final_results(y_0[0:3], lin_prediction , y_5[0:3], b,c,d)
             st.write(pred_df)
 
 
