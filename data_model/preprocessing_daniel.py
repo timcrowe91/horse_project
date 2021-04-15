@@ -8,6 +8,14 @@ from sklearn.preprocessing import RobustScaler
 from pickle import dump
 from pickle import load
 
+
+
+def mask_first(x):
+    result = np.ones_like(x)
+    result[0] = 0
+    return result
+
+
 def get_X_y(df, number_of_sequences, length):
     
     X = []
