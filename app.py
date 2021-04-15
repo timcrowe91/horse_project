@@ -5,22 +5,21 @@ from data_model.data import BestHorseForm , get_classification, get_linear
 from data_model.preprocessing_rex import filter_data, filter_new_data, final_results
 import numpy as np
 
-
-# import requests as re
-# import json
-def get_css():
-    CSS = """
-    h1 {
-        color: red;
-    }
-    body {
-        background-image: url(https://i.ibb.co/XWYJQJX/horse-race.png);
+st.markdown(
+    """
+    <style>
+    .reportview-container {
+        background-image: url("https://i.ibb.co/XWYJQJX/horse-race.png");
         background-size: cover;
     }
-    """
-    return st.write(f'<style>{CSS}</style>', unsafe_allow_html=True) 
+   .sidebar .sidebar-content {
+        background: url("https://i.ibb.co/XWYJQJX/horse-race.png")
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
 
-get_css()
 st.markdown("""# Horse Arbitrator
 ## 🐎🐎🐎 Calculates the future odds of each horse perfectly 🐴🐴🐴
 ### Here is a list of current horses
@@ -56,17 +55,12 @@ if uploaded_file is not None:
     class_model = get_classification()
     linear_model = get_linear()
     class_prediction = class_model.predict(X)
-    y_0_df = pd.DataFrame(y_0)
-    y_20_df = pd.DataFrame(y_20)
-    a = pd.DataFrame(class_prediction, columns=['down','same','up'])
-    b = a['down']
-    c = a['same']
-    d = a['up']
-    y = y_0_df
-    yy = y_20_df
-
     lin_prediction = linear_model.predict(X)
-    pred_df=final_results(y[0:9], lin_prediction[0:9] , yy[0:9], b[0:9],c[0:9],d[0:9])
+    pred_df, real_pnl, mm_pnl, perc_correct, numbets = final_results(y_0, lin_prediction, y_20, class_prediction)
+    st.markdown(f'Total PnL: {real_pnl}')
+    st.markdown(f'Theoretical Mid-Market PnL: {mm_pnl}')
+    st.markdown(f'% Correctly Predicted Price Movement: {perc_correct}')
+    st.markdown(f'Number of Bets: {numbets}')
     st.write(pred_df)
 
     
