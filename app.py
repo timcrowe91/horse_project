@@ -61,8 +61,8 @@ if uploaded_file is not None:
     b = a['down']
     c = a['same']
     d = a['up']
-    e = pd.DataFrame(y_0)
-    f= pd.DataFrame(y_20)
+    st.write(y_0)
+    st.write(y_20)
     lin_prediction = linear_model.predict(X)
     pred_df=final_results(e[0:9], lin_prediction[0:9] , f[0:9], b[0:9],c[0:9],d[0:9])
     st.write(pred_df)
