@@ -166,9 +166,9 @@ def filter_data(csv_file):
 
         
         # flip axis 1 of the X array
-        '''because X has been sorted in reverse chronological order, 
-        its time values must be flipped back before introducing them 
-        to the model for training'''
+    '''because X has been sorted in reverse chronological order, 
+    its time values must be flipped back before introducing them 
+    to the model for training'''
     X = np.flip(X, axis=1)
 
     return X, y_20s, y_0s
