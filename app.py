@@ -56,12 +56,15 @@ if uploaded_file is not None:
     class_model = get_classification()
     linear_model = get_linear()
     class_prediction = class_model.predict(X)
+    
     a = pd.DataFrame(class_prediction, columns=['down','same','up'])
     b = a['down']
     c = a['same']
     d = a['up']
+    e = pd.DataFrame(y_0)
+    f= pd.DataFrame(y_20)
     lin_prediction = linear_model.predict(X)
-    pred_df=final_results(y_0[0:9], lin_prediction[0:9] , y_20[0:9], b[0:9],c[0:9],d[0:9])
+    pred_df=final_results(e[0:9], lin_prediction[0:9] , f[0:9], b[0:9],c[0:9],d[0:9])
     st.write(pred_df)
 
     
