@@ -177,7 +177,7 @@ def filter_data(csv_file):
         to the model for training'''
         X = np.flip(X_array, axis=1)
 
-    return X, y_20s
+    return X, y_20s, y_0s
 
 
 def filter_new_data(csv_file):
