@@ -123,6 +123,7 @@ def mask_first(x):
 #     df_resorted.reset_index(inplace=True, drop=True)
 
 
+<<<<<<< HEAD
 #     X = []
 #     y_0s = []
 #     y_5s = []
@@ -131,6 +132,11 @@ def mask_first(x):
 #     y_20s = []
 #     y_25s = []
 #     y_30s = []
+=======
+    y_0s = []
+    y_20s = []
+    X = []
+>>>>>>> 7b4af2d8483ebd8e46af79ef4ccef22bb0352291
 
 #     counter = 1
 
@@ -159,6 +165,7 @@ def mask_first(x):
 #         y_subsample_30s = sub_df.iloc[start-6][['Implied_Prob']]
         
         
+<<<<<<< HEAD
 #         # append that sequence to a list
 #         X.append(X_subsample)
 #         y_0s.append(y_subsample_0s)
@@ -177,6 +184,17 @@ def mask_first(x):
 #         y_20s = np.array(y_20s)
 #         y_25s = np.array(y_25s)
 #         y_30s = np.array(y_30s)
+=======
+        # append that sequence to a list
+        X.append(X_subsample)
+        y_0s.append(y_subsample_0s)
+        y_20s.append(y_subsample_20s)
+
+        # convert lists to numpy arrays
+        y_0s = np.array(y_0s)
+        y_20s = np.array(y_20s)
+        X = np.array(X)
+>>>>>>> 7b4af2d8483ebd8e46af79ef4ccef22bb0352291
 
         
 #         # flip axis 1 of the X array
@@ -231,14 +249,9 @@ def filter_new_data(csv_file):
     df_resorted.reset_index(inplace=True, drop=True)
 
 
-    X = []
     y_0s = []
-    y_5s = []
-    y_10s = []
-    y_15s = []
     y_20s = []
-    y_25s = []
-    y_30s = []
+    X = []
 
     counter = 1
 

@@ -7,7 +7,6 @@ import numpy as np
 
 # import requests as re
 # import json
-@st.cache
 def get_css():
     CSS = """
     h1 {
@@ -20,6 +19,7 @@ def get_css():
     """
     return st.write(f'<style>{CSS}</style>', unsafe_allow_html=True) 
 
+get_css()
 st.markdown("""# Horse Arbitrator
 ## 🐎🐎🐎 Calculates the future odds of each horse perfectly 🐴🐴🐴
 ### Here is a list of current horses
@@ -63,7 +63,10 @@ st.markdown("""# Horse Arbitrator
 
 uploaded_file = st.file_uploader("Upload csv file", type=["csv"])
 if uploaded_file is not None:
+<<<<<<< HEAD
     # X, y_20s, y_0s = filter_data(uploaded_file)
+=======
+>>>>>>> 7b4af2d8483ebd8e46af79ef4ccef22bb0352291
     X, y_20s, y_0s = filter_new_data(uploaded_file)
     st.write(X)
     st.write(y_20s)
