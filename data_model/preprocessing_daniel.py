@@ -123,14 +123,9 @@ def filter_data(csv_file):
     df_resorted.reset_index(inplace=True, drop=True)
 
 
-    X = []
     y_0s = []
-    y_5s = []
-    y_10s = []
-    y_15s = []
     y_20s = []
-    y_25s = []
-    y_30s = []
+    X = []
 
     counter = 1
 
@@ -162,21 +157,12 @@ def filter_data(csv_file):
         # append that sequence to a list
         X.append(X_subsample)
         y_0s.append(y_subsample_0s)
-        y_5s.append(y_subsample_5s)
-        y_10s.append(y_subsample_10s)
-        y_15s.append(y_subsample_15s)
         y_20s.append(y_subsample_20s)
-        y_25s.append(y_subsample_25s)
-        y_30s.append(y_subsample_30s)
 
         # convert lists to numpy arrays
         y_0s = np.array(y_0s)
-        y_5s = np.array(y_5s)
-        y_10s = np.array(y_10s)
-        y_15s = np.array(y_15s)
         y_20s = np.array(y_20s)
-        y_25s = np.array(y_25s)
-        y_30s = np.array(y_30s)
+        X = np.array(X)
 
         
         # flip axis 1 of the X array
