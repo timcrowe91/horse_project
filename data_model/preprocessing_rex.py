@@ -301,8 +301,7 @@ def final_results(last_odds_test, y_pred, y_test, down, same, up):
     min_change = 4
     stake = 10
     betfair_ticks = pd.read_csv("data_model/BetfairTicks.csv")['Price']
-    results = pd.DataFrame()
-    results['Last_Prob'] = last_odds_test
+    results = pd.DataFrame(last_odds_test, columns='Last_Prob')
     results['Pred_Prob'] = y_pred
     results['True_Prob'] = y_test
     results['Last_Odds'] = 1 / results['Last_Prob']
