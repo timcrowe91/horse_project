@@ -123,20 +123,9 @@ def mask_first(x):
 #     df_resorted.reset_index(inplace=True, drop=True)
 
 
-<<<<<<< HEAD
-#     X = []
-#     y_0s = []
-#     y_5s = []
-#     y_10s = []
-#     y_15s = []
-#     y_20s = []
-#     y_25s = []
-#     y_30s = []
-=======
-    y_0s = []
-    y_20s = []
-    X = []
->>>>>>> 7b4af2d8483ebd8e46af79ef4ccef22bb0352291
+#      y_0s = []
+#      y_20s = []
+#      X = []
 
 #     counter = 1
 
@@ -163,62 +152,39 @@ def mask_first(x):
 #         y_subsample_20s = sub_df.iloc[start-4][['Implied_Prob']]
 #         y_subsample_25s = sub_df.iloc[start-5][['Implied_Prob']]
 #         y_subsample_30s = sub_df.iloc[start-6][['Implied_Prob']]
-        
-        
-<<<<<<< HEAD
-#         # append that sequence to a list
-#         X.append(X_subsample)
-#         y_0s.append(y_subsample_0s)
-#         y_5s.append(y_subsample_5s)
-#         y_10s.append(y_subsample_10s)
-#         y_15s.append(y_subsample_15s)
-#         y_20s.append(y_subsample_20s)
-#         y_25s.append(y_subsample_25s)
-#         y_30s.append(y_subsample_30s)
 
-#         # convert lists to numpy arrays
-#         y_0s = np.array(y_0s)
-#         y_5s = np.array(y_5s)
-#         y_10s = np.array(y_10s)
-#         y_15s = np.array(y_15s)
-#         y_20s = np.array(y_20s)
-#         y_25s = np.array(y_25s)
-#         y_30s = np.array(y_30s)
-=======
-        # append that sequence to a list
-        X.append(X_subsample)
-        y_0s.append(y_subsample_0s)
-        y_20s.append(y_subsample_20s)
+            # # append that sequence to a list
+        # X.append(X_subsample)
+        # y_0s.append(y_subsample_0s)
+        # y_20s.append(y_subsample_20s)
 
-<<<<<<< HEAD
+
         # convert lists to numpy arrays
-<<<<<<< HEAD
-        y_0s = np.array(y_0s)
-        y_20s = np.array(y_20s)
-        X = np.array(X)
->>>>>>> 7b4af2d8483ebd8e46af79ef4ccef22bb0352291
+
+#         y_0s = np.array(y_0s)
+#         y_20s = np.array(y_20s)
+#         X = np.array(X)
+
 
         
-#         # flip axis 1 of the X array
-#         '''because X has been sorted in reverse chronological order, 
-#         its time values must be flipped back before introducing them 
-#         to the model for training'''
-#         X = np.flip(X, axis=1)
-=======
-=======
-    # convert lists to numpy arrays
->>>>>>> 3ffd61b2b4dd01312715eb750c92dba48fde5019
-    y_0s = np.array(y_0s)
-    y_20s = np.array(y_20s)
-    X = np.array(X)
+# #         # flip axis 1 of the X array
+# #         '''because X has been sorted in reverse chronological order, 
+# #         its time values must be flipped back before introducing them 
+# #         to the model for training'''
+# #         X = np.flip(X, axis=1)
+
+#     # convert lists to numpy arrays
+
+#     y_0s = np.array(y_0s)
+#     y_20s = np.array(y_20s)
+#     X = np.array(X)
 
         
-    # flip axis 1 of the X array
-    '''because X has been sorted in reverse chronological order, 
-    its time values must be flipped back before introducing them 
-    to the model for training'''
-    X = np.flip(X, axis=1)
->>>>>>> e5154372d18b4058efa12fdf332ba623fade6c21
+#     # flip axis 1 of the X array
+#     '''because X has been sorted in reverse chronological order, 
+#     its time values must be flipped back before introducing them 
+#     to the model for training'''
+#     X = np.flip(X, axis=1)
 
 #     return X, y_20s, y_0s
 
@@ -296,36 +262,16 @@ def filter_new_data(csv_file):
         y_0s.append(y_subsample_0s)
         y_20s.append(y_subsample_20s)
     
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     # convert lists to numpy arrays
-=======
-        # convert lists to numpy arrays
->>>>>>> e5154372d18b4058efa12fdf332ba623fade6c21
-=======
-    # convert lists to numpy arrays
->>>>>>> 3ffd61b2b4dd01312715eb750c92dba48fde5019
     X = np.array(X)
     y_0s = np.array(y_0s)
     y_20s = np.array(y_20s)
         
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3ffd61b2b4dd01312715eb750c92dba48fde5019
     # flip axis 1 of the X array
     '''because X has been sorted in reverse chronological order, its 
     time values must be flipped back to chrono order (counting down 
     to race start)before they can be introduced to the model for training'''
-<<<<<<< HEAD
-=======
-        # flip axis 1 of the X array
-        '''because X has been sorted in reverse chronological order, its 
-        time values must be flipped back to chrono order (counting down 
-        to race start)before they can be introduced to the model for training'''
->>>>>>> e5154372d18b4058efa12fdf332ba623fade6c21
-=======
->>>>>>> 3ffd61b2b4dd01312715eb750c92dba48fde5019
     X = np.flip(X, axis=1)
 
     return X, y_20s, y_0s
