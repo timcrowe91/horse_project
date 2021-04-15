@@ -61,7 +61,7 @@ if uploaded_file is not None:
     c = a['same']
     d = a['up']
     lin_prediction = linear_model.predict(X)
-    pred_df=final_results([y_0[0:9]], lin_prediction[0:9] , [y_20[0:9]], b[0:9],c[0:9],d[0:9])
+    pred_df=final_results(y_0[0:9,1], lin_prediction[0:9] , y_20[0:9,1], b[0:9],c[0:9],d[0:9])
     st.write(pred_df)
 
     
