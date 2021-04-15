@@ -6,8 +6,6 @@ from data_model.preprocessing_rex import filter_data, filter_new_data, final_res
 import numpy as np
 
 
-# import requests as re
-# import json
 st.markdown(
     """
     <style>
@@ -22,7 +20,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
     )
-
 
 
 st.markdown("""# Horse Arbitrator
@@ -60,12 +57,14 @@ if uploaded_file is not None:
     class_model = get_classification()
     linear_model = get_linear()
     class_prediction = class_model.predict(X)
-    a = pd.DataFrame(class_prediction, columns=['down','same','up'])
-    b = a['down']
-    c = a['same']
-    d = a['up']
+
     lin_prediction = linear_model.predict(X)
-    pred_df=final_results(y_0[0:25,0], lin_prediction[0:25] , y_20[0:25,0], b[0:25],c[0:25],d[0:25])
+    pred_df, real_pnl, mm_pnl, perc_correct, numbets = final_results(y_0, lin_prediction, y_20, class_prediction)
+    st.markdown(f'Total PnL: {real_pnl}')
+    st.markdown(f'Theoretical Mid-Market PnL: {mm_pnl}')
+    st.markdown(f'% Correctly Predicted Price Movement: {perc_correct}')
+    st.markdown(f'Number of Bets: {numbets}')
+
     st.write(pred_df)
 
     
