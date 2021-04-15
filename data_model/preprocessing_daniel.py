@@ -160,16 +160,16 @@ def filter_data(csv_file):
         y_20s.append(y_subsample_20s)
 
         # convert lists to numpy arrays
-        y_0s = np.array(y_0s)
-        y_20s = np.array(y_20s)
-        X = np.array(X)
+    y_0s = np.array(y_0s)
+    y_20s = np.array(y_20s)
+    X = np.array(X)
 
         
         # flip axis 1 of the X array
         '''because X has been sorted in reverse chronological order, 
         its time values must be flipped back before introducing them 
         to the model for training'''
-        X = np.flip(X, axis=1)
+    X = np.flip(X, axis=1)
 
     return X, y_20s, y_0s
 
@@ -248,15 +248,15 @@ def filter_new_data(csv_file):
         y_20s.append(y_subsample_20s)
     
         # convert lists to numpy arrays
-        X = np.array(X)
-        y_0s = np.array(y_0s)
-        y_20s = np.array(y_20s)
+    X = np.array(X)
+    y_0s = np.array(y_0s)
+    y_20s = np.array(y_20s)
         
         # flip axis 1 of the X array
         '''because X has been sorted in reverse chronological order, its 
         time values must be flipped back to chrono order (counting down 
         to race start)before they can be introduced to the model for training'''
-        X = np.flip(X, axis=1)
+    X = np.flip(X, axis=1)
 
     return X, y_20s, y_0s
 
