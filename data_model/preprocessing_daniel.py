@@ -320,18 +320,13 @@ def final_results(last_odds_test, y_pred, y_test, direction):
     results['True_Back'], results['True_Lay'] = zip(*results['True_Prob'].apply(lambda x: find_ticks(betfair_ticks, x)))
     results['Tick_Change'] = results.apply(lambda x: distance_between_ticks(betfair_ticks, x['Last_Back'], x['Pred_Back']), axis=1)
     results['direction'] = direction
-    # results['Bet_Type'] = np.where((results['Pred_Lay'] < results['Last_Back']) & (results['direction'] == 'Down','Back', np.where((results['Pred_Back'] > results['Last_Lay']) & (results['direction'] == 'Up','Lay', 'No Bet'))
-    # abba = 1
-    bets=[]
-    for i in results['direction']:
-        if i == 'Down':
-            bets.append('Back')
-        elif i == 'Up':
-            bets.append('Lay')
-        else:
-            bets.append('No Bet')
-    results['Bet_Type']= bets
-
+    results['Down'] = down
+    results['Same'] = same
+    results['Up'] = up
+    results['Bet_Type'] = np.where((results['Pred_Lay'] < results['Last_Back']) & (results['Down'] == results[['Down', 'Up', 'Same']].max(axis=1)),\
+                               "Back", \
+                               np.where((results['Pred_Back'] > results['Last_Lay']) & (results['Up'] == results[['Down', 'Up', 'Same']].max(axis=1)),\
+                                "Lay", "No Bet"))
     results['Min_Tick_Change_Predicted'] = np.where(abs(results['Tick_Change']) >= min_change, 1, 0)
     results['PnL_All'] = np.where(results['Bet_Type'] == "Back", stake * (results['Last_Back'] / results['True_Lay'] - 1),\
                                 np.where(results['Bet_Type'] == "Lay", (stake * (1 - results['Last_Lay'] / results['True_Back'])), 0))
