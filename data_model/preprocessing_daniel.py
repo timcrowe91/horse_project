@@ -190,6 +190,7 @@ def mask_first(x):
         y_0s.append(y_subsample_0s)
         y_20s.append(y_subsample_20s)
 
+<<<<<<< HEAD
         # convert lists to numpy arrays
 <<<<<<< HEAD
         y_0s = np.array(y_0s)
@@ -204,15 +205,18 @@ def mask_first(x):
 #         to the model for training'''
 #         X = np.flip(X, axis=1)
 =======
+=======
+    # convert lists to numpy arrays
+>>>>>>> 3ffd61b2b4dd01312715eb750c92dba48fde5019
     y_0s = np.array(y_0s)
     y_20s = np.array(y_20s)
     X = np.array(X)
 
         
-        # flip axis 1 of the X array
-        '''because X has been sorted in reverse chronological order, 
-        its time values must be flipped back before introducing them 
-        to the model for training'''
+    # flip axis 1 of the X array
+    '''because X has been sorted in reverse chronological order, 
+    its time values must be flipped back before introducing them 
+    to the model for training'''
     X = np.flip(X, axis=1)
 >>>>>>> e5154372d18b4058efa12fdf332ba623fade6c21
 
@@ -293,25 +297,35 @@ def filter_new_data(csv_file):
         y_20s.append(y_subsample_20s)
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     # convert lists to numpy arrays
 =======
         # convert lists to numpy arrays
 >>>>>>> e5154372d18b4058efa12fdf332ba623fade6c21
+=======
+    # convert lists to numpy arrays
+>>>>>>> 3ffd61b2b4dd01312715eb750c92dba48fde5019
     X = np.array(X)
     y_0s = np.array(y_0s)
     y_20s = np.array(y_20s)
         
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3ffd61b2b4dd01312715eb750c92dba48fde5019
     # flip axis 1 of the X array
     '''because X has been sorted in reverse chronological order, its 
     time values must be flipped back to chrono order (counting down 
     to race start)before they can be introduced to the model for training'''
+<<<<<<< HEAD
 =======
         # flip axis 1 of the X array
         '''because X has been sorted in reverse chronological order, its 
         time values must be flipped back to chrono order (counting down 
         to race start)before they can be introduced to the model for training'''
 >>>>>>> e5154372d18b4058efa12fdf332ba623fade6c21
+=======
+>>>>>>> 3ffd61b2b4dd01312715eb750c92dba48fde5019
     X = np.flip(X, axis=1)
 
     return X, y_20s, y_0s
