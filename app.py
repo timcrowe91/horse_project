@@ -25,7 +25,6 @@ st.markdown(
 st.markdown("""# Horse Arbitrator
 ## 🐎🐎🐎 Calculates the future odds of each horse perfectly 🐴🐴🐴
 #
-#
 """)
 
 # X,y,model = get_model()
@@ -63,7 +62,7 @@ if uploaded_file is not None:
     class_prediction = class_model.predict(X)
 
     lin_prediction = linear_model.predict(X)
-    pred_df, real_pnl, mm_pnl, perc_correct, numbets = final_results(y_0, lin_prediction, y_20, class_prediction,min_change,stake)
+    pred_df, real_pnl, mm_pnl, perc_correct, numbets = final_results(y_0, lin_prediction, y_20, class_prediction,int(min_change),float(stake))
     st.markdown(f'Total PnL: {real_pnl}')
     st.markdown(f'Theoretical Mid-Market PnL: {mm_pnl}')
     st.markdown(f'% Correctly Predicted Price Movement: {perc_correct}')
