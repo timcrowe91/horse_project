@@ -1,29 +1,30 @@
 import streamlit as st
 from time import time, sleep
 import pandas as pd
-from data_model.data import BestHorseForm #, get_classification, get_linear
+from data_model.data import BestHorseForm , get_classification, get_linear
 from data_model.preprocessing_rex import filter_data, filter_new_data, final_results
 import numpy as np
 
 
-# import requests as re
-# import json
-def get_css():
-    CSS = """
-    h1 {
-        color: red;
-    }
-    body {
-        background-image: url(https://i.ibb.co/XWYJQJX/horse-race.png);
+st.markdown(
+    """
+    <style>
+    .reportview-container {
+        background-image: url("https://i.ibb.co/XWYJQJX/horse-race.png");
         background-size: cover;
     }
-    """
-    return st.write(f'<style>{CSS}</style>', unsafe_allow_html=True) 
+   .sidebar .sidebar-content {
+        background: url("https://i.ibb.co/XWYJQJX/horse-race.png")
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
 
-get_css()
+
 st.markdown("""# Horse Arbitrator
 ## 🐎🐎🐎 Calculates the future odds of each horse perfectly 🐴🐴🐴
-### Here is a list of current horses
+#
 """)
 
 # X,y,model = get_model()
@@ -49,22 +50,24 @@ st.markdown("""# Horse Arbitrator
 #     # scaled_X, scaled_y = filter_new_data(uploaded_file)
 #            
 
+min_change = st.text_input("min change of ticks?", 4)
+stake = st.text_input("stake?", 10)
+
 uploaded_file = st.file_uploader("Upload csv file", type=["csv"])
 if uploaded_file is not None:
     # X, y_20s, y_0s = filter_data(uploaded_file)
-    X, y_20s, y_0s = filter_new_data(uploaded_file)
-    X = np.load(X)
-    y_0 = np.load(y_0s)
-    y_20 = np.load(y_20s)
+    X, y_20, y_0 = filter_new_data(uploaded_file)
     class_model = get_classification()
     linear_model = get_linear()
     class_prediction = class_model.predict(X)
-    a = pd.DataFrame(class_prediction, columns=['down','same','up'])
-    b = a['down']
-    c = a['same']
-    d = a['up']
+
     lin_prediction = linear_model.predict(X)
-    pred_df=final_results(y_0[0:9], lin_prediction[0:9] , y_5[0:9], b[0:9],c[0:9],d[0:9])
+    pred_df, real_pnl, mm_pnl, perc_correct, numbets = final_results(y_0, lin_prediction, y_20, class_prediction,int(min_change),float(stake))
+    st.markdown(f'Total PnL: {real_pnl}')
+    st.markdown(f'Theoretical Mid-Market PnL: {mm_pnl}')
+    st.markdown(f'% Correctly Predicted Price Movement: {perc_correct}')
+    st.markdown(f'Number of Bets: {numbets}')
+
     st.write(pred_df)
 
     
@@ -77,6 +80,8 @@ df = pd.DataFrame(columns=['horse_name','back_odds_3','back_avail_3','back_odds_
                             'last_price','TotalMatched'])
 
 
+
+st.markdown('''### Here is a list of current horses:''')
 placeholder = st.empty()
 
 with placeholder.beta_container():
