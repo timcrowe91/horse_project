@@ -24,7 +24,6 @@ st.markdown(
 
 st.markdown("""# Horse Arbitrator
 ## 🐎🐎🐎 Calculates the future odds of each horse perfectly 🐴🐴🐴
-### Here is a list of current horses
 """)
 
 # X,y,model = get_model()
@@ -50,6 +49,9 @@ st.markdown("""# Horse Arbitrator
 #     # scaled_X, scaled_y = filter_new_data(uploaded_file)
 #            
 
+min_change = st.text_input("min change of ticks?", 4)
+stake = st.text_input("stake?", 10)
+
 uploaded_file = st.file_uploader("Upload csv file", type=["csv"])
 if uploaded_file is not None:
     # X, y_20s, y_0s = filter_data(uploaded_file)
@@ -59,7 +61,7 @@ if uploaded_file is not None:
     class_prediction = class_model.predict(X)
 
     lin_prediction = linear_model.predict(X)
-    pred_df, real_pnl, mm_pnl, perc_correct, numbets = final_results(y_0, lin_prediction, y_20, class_prediction)
+    pred_df, real_pnl, mm_pnl, perc_correct, numbets = final_results(y_0, lin_prediction, y_20, class_prediction,min_change,stake)
     st.markdown(f'Total PnL: {real_pnl}')
     st.markdown(f'Theoretical Mid-Market PnL: {mm_pnl}')
     st.markdown(f'% Correctly Predicted Price Movement: {perc_correct}')
@@ -77,6 +79,8 @@ df = pd.DataFrame(columns=['horse_name','back_odds_3','back_avail_3','back_odds_
                             'last_price','TotalMatched'])
 
 
+
+st.markdown('''### Here is a list of current horses:''')
 placeholder = st.empty()
 
 with placeholder.beta_container():
