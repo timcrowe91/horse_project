@@ -70,7 +70,7 @@ if uploaded_file is not None:
     pred_df, real_pnl, mm_pnl, perc_correct, numbets = final_results(y_0, lin_prediction, y_20, class_prediction,int(min_change),float(stake))
     st.markdown(f'**Total PnL:** £{round(real_pnl,2)}')
     st.markdown(f'**Theoretical Mid-Market PnL:** £{round(mm_pnl,2)}')
-    st.markdown(f'**% Correctly Predicted Price Movement:** {round(perc_correct,2)*100}%')
+    st.markdown(f'**% Correctly Predicted Price Movement:** {round(perc_correct*100,2)}%')
     st.markdown(f'**Number of Bets:** {numbets}')
     st.write(pred_df)
     if real_pnl > 0 :
