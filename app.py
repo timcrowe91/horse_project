@@ -1,20 +1,21 @@
 import streamlit as st
-from time import time, sleep
-import pandas as pd
-from data_model.data import BestHorseForm , get_classification, get_linear
-from data_model.preprocessing_rex import filter_data, filter_new_data, final_results
-import numpy as np
+# from time import time, sleep
+# import pandas as pd
+# from data_model.data import BestHorseForm , get_classification, get_linear
+# from data_model.preprocessing_rex import filter_data, filter_new_data, final_results
+# import numpy as np
+from PIL import Image
 
 
 st.markdown(
     """
     <style>
     .reportview-container {
-        background-image: url("https://i.ibb.co/XWYJQJX/horse-race.png");
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVQAAACUCAMAAAD70yGHAAAAA1BMVEXP//uEwjpBAAAASElEQVR4nO3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBnA8UkAAEmGMCJAAAAAElFTkSuQmCC");
         background-size: cover;
     }
    .sidebar .sidebar-content {
-        background: url("https://i.ibb.co/XWYJQJX/horse-race.png")
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVQAAACUCAMAAAD70yGHAAAAA1BMVEXP//uEwjpBAAAASElEQVR4nO3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBnA8UkAAEmGMCJAAAAAElFTkSuQmCC")
     }
     </style>
     """,
@@ -67,8 +68,15 @@ if uploaded_file is not None:
     st.markdown(f'Theoretical Mid-Market PnL: {mm_pnl}')
     st.markdown(f'% Correctly Predicted Price Movement: {perc_correct}')
     st.markdown(f'Number of Bets: {numbets}')
-
     st.write(pred_df)
+    if real_pnl > 0 :
+        image = Image.open('horse-race.png')
+        st.image(image, caption='We are making $$$$', use_column_width=False)
+    else:
+        image = Image.open('money-loss.jpg')
+        st.image(image, caption='Oh no! We lost money!', use_column_width=False)
+
+
 
     
 
