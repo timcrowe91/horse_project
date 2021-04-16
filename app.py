@@ -24,6 +24,8 @@ st.markdown(
 
 st.markdown("""# Horse Arbitrator
 ## 🐎🐎🐎 Calculates the future odds of each horse perfectly 🐴🐴🐴
+#
+#
 """)
 
 # X,y,model = get_model()
