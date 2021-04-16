@@ -22,7 +22,7 @@ st.markdown(
     unsafe_allow_html=True
     )
 
-image = Image.open('horse.png')
+image = Image.open('horse-logo.png')
 st.image(image, use_column_width=True)
 
 
@@ -68,10 +68,10 @@ if uploaded_file is not None:
 
     lin_prediction = linear_model.predict(X)
     pred_df, real_pnl, mm_pnl, perc_correct, numbets = final_results(y_0, lin_prediction, y_20, class_prediction,int(min_change),float(stake))
-    st.markdown(f'Total PnL: £{real_pnl}')
-    st.markdown(f'Theoretical Mid-Market PnL: £{round(mm_pnl,2)}')
-    st.markdown(f'% Correctly Predicted Price Movement: {round(perc_correct,2)}')
-    st.markdown(f'Number of Bets: {round(numbets,2)}%')
+    st.markdown(f'**Total PnL:** £{round(real_pnl,2)}')
+    st.markdown(f'**Theoretical Mid-Market PnL:** £{round(mm_pnl,2)}')
+    st.markdown(f'**% Correctly Predicted Price Movement:** {round(perc_correct,2)*100}%')
+    st.markdown(f'**Number of Bets:** {numbets}')
     st.write(pred_df)
     if real_pnl > 0 :
         image = Image.open('horse-race.png')
