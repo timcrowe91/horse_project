@@ -257,7 +257,6 @@ def filter_new_data(csv_file):
     '''because X has been sorted in reverse chronological order, its 
     time values must be flipped back to chrono order (counting down 
     to race start)before they can be introduced to the model for training'''
-
     X = np.flip(X, axis=1)
 
     return X, y_20s, y_0s
