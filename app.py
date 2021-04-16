@@ -22,8 +22,8 @@ st.markdown(
     unsafe_allow_html=True
     )
 
-image = Image.open('horse-race.png')
-st.image(image, use_column_width=False)
+image = Image.open('horse.png')
+st.image(image, use_column_width=True)
 
 
 st.markdown("""
